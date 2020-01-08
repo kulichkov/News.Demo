@@ -25,6 +25,7 @@
 		699C4EFD23C6158C006A66BB /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C4EF423C6158C006A66BB /* Country.swift */; };
 		699C4EFE23C6158C006A66BB /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C4EF523C6158C006A66BB /* Article.swift */; };
 		699C4F0223C61DC0006A66BB /* ResponseStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C4F0123C61DC0006A66BB /* ResponseStatus.swift */; };
+		699C4F0423C629BB006A66BB /* NewsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C4F0323C629BB006A66BB /* NewsRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		699C4EF423C6158C006A66BB /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		699C4EF523C6158C006A66BB /* Article.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		699C4F0123C61DC0006A66BB /* ResponseStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStatus.swift; sourceTree = "<group>"; };
+		699C4F0323C629BB006A66BB /* NewsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				699C4EE823C604DE006A66BB /* NewsRepositoryProtocol.swift */,
+				699C4F0323C629BB006A66BB /* NewsRepository.swift */,
 			);
 			path = NewsRepository;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				699C4EE623C5FD2C006A66BB /* Secret.swift in Sources */,
 				699C4EFC23C6158C006A66BB /* Language.swift in Sources */,
 				699C4EFB23C6158C006A66BB /* NewsCategory.swift in Sources */,
+				699C4F0423C629BB006A66BB /* NewsRepository.swift in Sources */,
 				690C97A623C4B0B400851216 /* AppCoordinator.swift in Sources */,
 				690C979023C4AD2B00851216 /* AppDelegate.swift in Sources */,
 				690C979223C4AD2B00851216 /* SceneDelegate.swift in Sources */,
