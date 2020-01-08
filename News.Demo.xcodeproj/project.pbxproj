@@ -13,6 +13,7 @@
 		690C979C23C4AD2E00851216 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 690C979A23C4AD2E00851216 /* LaunchScreen.storyboard */; };
 		690C97A423C4B05A00851216 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690C97A323C4B05A00851216 /* Coordinator.swift */; };
 		690C97A623C4B0B400851216 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690C97A523C4B0B400851216 /* AppCoordinator.swift */; };
+		699C4EE623C5FD2C006A66BB /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C4EE523C5FD2C006A66BB /* Secret.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		690C979D23C4AD2E00851216 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		690C97A323C4B05A00851216 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		690C97A523C4B0B400851216 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		699C4EE523C5FD2C006A66BB /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				690C978F23C4AD2B00851216 /* AppDelegate.swift */,
 				690C97A323C4B05A00851216 /* Coordinator.swift */,
 				690C97A523C4B0B400851216 /* AppCoordinator.swift */,
+				699C4EE523C5FD2C006A66BB /* Secret.swift */,
 				690C979123C4AD2B00851216 /* SceneDelegate.swift */,
 				690C979823C4AD2E00851216 /* Assets.xcassets */,
 				690C979A23C4AD2E00851216 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				690C97A423C4B05A00851216 /* Coordinator.swift in Sources */,
+				699C4EE623C5FD2C006A66BB /* Secret.swift in Sources */,
 				690C97A623C4B0B400851216 /* AppCoordinator.swift in Sources */,
 				690C979023C4AD2B00851216 /* AppDelegate.swift in Sources */,
 				690C979223C4AD2B00851216 /* SceneDelegate.swift in Sources */,
