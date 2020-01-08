@@ -1,0 +1,10 @@
+disabled_rules: # rule identifiers to exclude from running
+  - leading_whitespace
+  - trailing_whitespace
+  - function_parameter_count
+line_length: 200
+identifier_name:
+  excluded:
+    - id
+    - q
+    - ok

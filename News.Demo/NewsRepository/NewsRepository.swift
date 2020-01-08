@@ -11,6 +11,7 @@ import Foundation
 class NewsRepository: NewsRepositoryProtocol {
 	enum RequestType: String {
 		case get = "GET"
+		case post = "POST"
 	}
 
 	enum Endpoint: String {
@@ -22,7 +23,12 @@ class NewsRepository: NewsRepositoryProtocol {
 	private let version: String = "v2"
 	private let xApiKeyField: String = "x-api-key"
 
-	private func makeAndStartRequest(endpoint: Endpoint, type: RequestType, parameters: [String: String]? = nil, completion: ((Result<Data, NewsRepositoryError>) -> Void)?) -> URLSessionTask? {
+	private func makeAndStartRequest(
+		endpoint: Endpoint,
+		type: RequestType,
+		parameters: [String: String]? = nil,
+		body: Data? = nil,
+		completion: ((Result<Data, NewsRepositoryError>) -> Void)?) -> URLSessionTask? {
 		let joinedURL = URL(string: baseURLString)?
 			.appendingPathComponent(version)
 			.appendingPathComponent(endpoint.rawValue)
@@ -44,9 +50,10 @@ class NewsRepository: NewsRepositoryProtocol {
 
 		// Header
 		urlRequest.httpMethod = type.rawValue
-		urlRequest.addValue(Secret.newsAPI_Key, forHTTPHeaderField: xApiKeyField)
+		urlRequest.httpBody = body
+		urlRequest.addValue(Secret.newsAPIKey, forHTTPHeaderField: xApiKeyField)
 
-		let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+		let task = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
 			if let data = data {
 				completion?(.success(data))
 			} else {
@@ -56,7 +63,16 @@ class NewsRepository: NewsRepositoryProtocol {
 		return task
 	}
 
-	func getTopHeadlines(category: String? = nil, language: String? = nil, country: String? = nil, sources: String? = nil, q: String? = nil, pageSize: Int? = nil, page: Int? = nil, completion: Completion?) -> URLSessionTask? {
+	@discardableResult
+	func getTopHeadlines(
+		category: String? = nil,
+		language: String? = nil,
+		country: String? = nil,
+		sources: String? = nil,
+		q: String? = nil,
+		pageSize: Int? = nil,
+		page: Int? = nil,
+		completion: Completion?) -> URLSessionTask? {
 
 		var parameters: [String: String] = [:]
 		parameters["category"] = category
@@ -78,4 +94,3 @@ class NewsRepository: NewsRepositoryProtocol {
 			completion: completion)
 	}
 }
-

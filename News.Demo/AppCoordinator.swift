@@ -20,15 +20,15 @@ class AppCoordinator: Coordinator {
 	}
 
 	func start() {
-		let vc = UIViewController()
-		vc.view.backgroundColor = .blue
-		let navVC = UINavigationController(rootViewController: vc)
+		let rootVC = UIViewController()
+		rootVC.view.backgroundColor = .blue
+		let navVC = UINavigationController(rootViewController: rootVC)
 		navigationController = navVC
 
-		repository.getTopHeadlines(language: "ru") { result in
+		repository.getTopHeadlines(country: "ru") { result in
 			switch result {
 			case .success(let data):
-				print(String(data: data, encoding: .utf8))
+				print(String(data: data, encoding: .utf8) ?? "Wrong data format")
 			case .failure(let error):
 				print(error)
 			}
@@ -38,4 +38,3 @@ class AppCoordinator: Coordinator {
 		window.makeKeyAndVisible()
 	}
 }
-
