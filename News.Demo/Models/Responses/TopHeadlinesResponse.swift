@@ -1,5 +1,5 @@
 //
-//  ArticlesResponse.swift
+//  TopHeadlinesResponse.swift
 //  News.Demo
 //
 //  Created by Mikhail Kulichkov on 08.01.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ArticlesResponse: NewsResponse {
+struct TopHeadlinesResponse: NewsResponse {
 	let status: ResponseStatus?
 	let code: String?
 	let message: String?
