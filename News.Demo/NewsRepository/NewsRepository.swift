@@ -63,7 +63,6 @@ class NewsRepository: NewsRepositoryProtocol {
 		return task
 	}
 
-	@discardableResult
 	func getTopHeadlines(
 		category: String? = nil,
 		language: String? = nil,

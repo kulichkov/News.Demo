@@ -14,6 +14,7 @@ class AppCoordinator: Coordinator {
 	var navigationController: UINavigationController?
 	private let window: UIWindow
 	private let repository = NewsRepository()
+	private lazy var dataProvider = NewsDataProvider(newsRepository: repository)
 
 	init(window: UIWindow) {
 		self.window = window
@@ -25,14 +26,7 @@ class AppCoordinator: Coordinator {
 		let navVC = UINavigationController(rootViewController: rootVC)
 		navigationController = navVC
 
-		repository.getTopHeadlines(country: "ru") { result in
-			switch result {
-			case .success(let data):
-				print(String(data: data, encoding: .utf8) ?? "Wrong data format")
-			case .failure(let error):
-				print(error)
-			}
-		}
+		dataProvider.fetchTopHeadlines(language: .russian, completion: nil)
 
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()
