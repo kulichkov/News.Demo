@@ -10,6 +10,8 @@ import Foundation
 
 enum NewsDataProviderError: Error {
 	case fetchingInProgress
+	case noMoreData
+	case unknownError
 	case parsingError(Error)
 	case repositoryError(NewsRepositoryError)
 	case fetchingError(String?, String?)
@@ -18,5 +20,6 @@ enum NewsDataProviderError: Error {
 protocol NewsDataProviderProtocol {
 	typealias Completion = (NewsDataProviderError?) -> Void
 	var topHeadlines: [Article] { get }
-	func fetchTopHeadlines(category: NewsCategory?, language: Language?, country: Country?, sources: [Source]?, q: String?, pageSize: Int?, page: Int?, completion: Completion?)
+	func fetchFreshTopHeadlines(completion: Completion?)
+	func fetchMoreTopHeadlines(completion: Completion?)
 }

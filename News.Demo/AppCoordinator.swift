@@ -14,7 +14,7 @@ class AppCoordinator: Coordinator {
 	var navigationController: UINavigationController?
 	private let window: UIWindow
 	private let repository = NewsRepository()
-	private lazy var dataProvider = NewsDataProvider(newsRepository: repository)
+	private lazy var dataProvider = NewsDataProvider(newsRepository: repository, language: .english, pageSize: 10)
 
 	init(window: UIWindow) {
 		self.window = window
@@ -26,9 +26,23 @@ class AppCoordinator: Coordinator {
 		let navVC = UINavigationController(rootViewController: rootVC)
 		navigationController = navVC
 
-		dataProvider.fetchTopHeadlines(language: .russian, completion: nil)
+		fetch(dataProvider: dataProvider)
 
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()
 	}
+
+	func fetch(dataProvider: NewsDataProviderProtocol) {
+		print("Fetching new pack of top headlines...")
+		dataProvider.fetchMoreTopHeadlines { [weak self] error in
+			if let error = error {
+				print(error)
+				dataProvider.topHeadlines.map { $0.title ?? "NO TITLE" }.forEach { print($0) }
+			} else {
+				print("Now provider have got \(dataProvider.topHeadlines.count) top headlines")
+				self?.fetch(dataProvider: dataProvider)
+			}
+		}
+	}
+
 }
