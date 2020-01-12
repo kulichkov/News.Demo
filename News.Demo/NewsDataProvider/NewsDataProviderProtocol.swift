@@ -22,4 +22,11 @@ protocol NewsDataProviderProtocol {
 	var topHeadlines: [Article] { get }
 	func fetchFreshTopHeadlines(completion: Completion?)
 	func fetchMoreTopHeadlines(completion: Completion?)
+
+	func setCategory(_ value: NewsCategory?, completion: Completion?)
+	func setLanguage(_ value: Language?, completion: Completion?)
+	func setCountry(_ value: Country?, completion: Completion?)
+	func setSources(_ value: [Source]?, completion: Completion?)
+	func setQ(_ value: String?, completion: Completion?)
+	func setPageSize(_ value: Int, completion: Completion?)
 }

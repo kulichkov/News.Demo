@@ -9,14 +9,16 @@
 import Foundation
 
 final class NewsDataProvider: NewsDataProviderProtocol {
+	// MARK: - Public properties
 	var topHeadlines: [Article] = []
 
-	private let category: NewsCategory?
-	private let language: Language?
-	private let country: Country?
-	private let sources: [Source]?
-	private let q: String?
-	private let pageSize: Int
+	// MARK: - Private properties
+	private var category: NewsCategory?
+	private var language: Language?
+	private var country: Country?
+	private var sources: [Source]?
+	private var q: String?
+	private var pageSize: Int
 
 	private var nextPage: Int {
 		pageSize > 0 ? (topHeadlines.count / pageSize) + 1 : 1
@@ -27,6 +29,7 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 	private var topHeadlinesFetchingTask: URLSessionTask?
 	private let newsRepository: NewsRepositoryProtocol
 
+	// MARK: - Initialization
 	init(newsRepository: NewsRepositoryProtocol, category: NewsCategory? = nil, language: Language? = nil, country: Country? = nil, sources: [Source]? = nil, q: String? = nil, pageSize: Int = 20) {
 		self.newsRepository = newsRepository
 
@@ -38,6 +41,7 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 		self.pageSize = pageSize
 	}
 
+	// MARK: - Public functions
 	func fetchFreshTopHeadlines(completion: Completion?) {
 		topHeadlinesFetchingTask?.cancel()
 		topHeadlines.removeAll()
@@ -49,6 +53,33 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 		fetchTopHeadlines(page: nextPage, completion: completion)
 	}
 
+	// Property setters with completion
+	func setCategory(_ value: NewsCategory?, completion: Completion?) {
+		category = value
+		fetchFreshTopHeadlines(completion: completion)
+	}
+	func setLanguage(_ value: Language?, completion: Completion?) {
+		language = value
+		fetchFreshTopHeadlines(completion: completion)
+	}
+	func setCountry(_ value: Country?, completion: Completion?) {
+		country = value
+		fetchFreshTopHeadlines(completion: completion)
+	}
+	func setSources(_ value: [Source]?, completion: Completion?) {
+		sources = value
+		fetchFreshTopHeadlines(completion: completion)
+	}
+	func setQ(_ value: String?, completion: Completion?) {
+		q = value
+		fetchFreshTopHeadlines(completion: completion)
+	}
+	func setPageSize(_ value: Int, completion: Completion?) {
+		pageSize = value
+		fetchFreshTopHeadlines(completion: completion)
+	}
+
+	// MARK: - Private functions
 	private func fetchTopHeadlines(page: Int, completion: Completion?) {
 		guard !isFetching else {
 			completion?(.fetchingInProgress)
