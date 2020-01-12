@@ -9,6 +9,7 @@
 import Foundation
 
 class NewsRepository: NewsRepositoryProtocol {
+	// TODO: Make repository more universal and generic
 	enum RequestType: String {
 		case get = "GET"
 		case post = "POST"

@@ -10,7 +10,6 @@ import Foundation
 
 enum NewsRepositoryError: Error {
 	case urlError
-	case parsingError(Error?)
 	case requestError(Error?)
 }
 
