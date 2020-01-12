@@ -14,7 +14,7 @@ class AppCoordinator: Coordinator {
 	var navigationController: UINavigationController?
 	private let window: UIWindow
 	private let repository = NewsRepository()
-	private lazy var dataProvider = NewsDataProvider(newsRepository: repository, language: .english, pageSize: 10)
+	private lazy var dataProvider = NewsDataProvider(newsRepository: repository, language: .english, pageSize: 5)
 
 	init(window: UIWindow) {
 		self.window = window
@@ -26,7 +26,15 @@ class AppCoordinator: Coordinator {
 		let navVC = UINavigationController(rootViewController: rootVC)
 		navigationController = navVC
 
-		fetch(dataProvider: dataProvider)
+		dataProvider.setPageSize(10) { [weak self] error in
+			if let error = error {
+				print(error)
+				self?.dataProvider.topHeadlines.map { $0.title ?? "NO TITLE" }.forEach { print($0) }
+			} else if let dataProvider = self?.dataProvider {
+				print("Now provider have got \(dataProvider.topHeadlines.count) top headlines")
+				self?.fetch(dataProvider: dataProvider)
+			}
+		}
 
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()
