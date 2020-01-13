@@ -21,20 +21,21 @@ class AppCoordinator: Coordinator {
 	}
 
 	func start() {
-		let rootVC = UIViewController()
-		rootVC.view.backgroundColor = .blue
-		let navVC = UINavigationController(rootViewController: rootVC)
+		let navVC = UINavigationController()
 		navigationController = navVC
+//		dataProvider.setPageSize(10) { [weak self] error in
+//			if let error = error {
+//				print(error)
+//				self?.dataProvider.topHeadlines.map { $0.title ?? "NO TITLE" }.forEach { print($0) }
+//			} else if let dataProvider = self?.dataProvider {
+//				print("Now provider have got \(dataProvider.topHeadlines.count) top headlines")
+//				self?.fetch(dataProvider: dataProvider)
+//			}
+//		}
 
-		dataProvider.setPageSize(10) { [weak self] error in
-			if let error = error {
-				print(error)
-				self?.dataProvider.topHeadlines.map { $0.title ?? "NO TITLE" }.forEach { print($0) }
-			} else if let dataProvider = self?.dataProvider {
-				print("Now provider have got \(dataProvider.topHeadlines.count) top headlines")
-				self?.fetch(dataProvider: dataProvider)
-			}
-		}
+		let topHeadlinesCoordinator = TopHeadlinesCoordinator(navigationController: navVC)
+		childCoordinators.append(topHeadlinesCoordinator)
+		topHeadlinesCoordinator.start()
 
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()
