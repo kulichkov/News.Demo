@@ -94,14 +94,14 @@
 		690C978E23C4AD2B00851216 /* News.Demo */ = {
 			isa = PBXGroup;
 			children = (
+				6924ADA223CC6127001251B7 /* Extensions */,
+				6924AD9F23CBD1EC001251B7 /* Flows */,
 				699C4EEA23C614F4006A66BB /* Models */,
 				699C4F0A23C72EDA006A66BB /* NewsDataProvider */,
 				699C4EE723C604A9006A66BB /* NewsRepository */,
 				690C978F23C4AD2B00851216 /* AppDelegate.swift */,
-				6924AD9F23CBD1EC001251B7 /* Flows */,
 				690C97A323C4B05A00851216 /* Coordinator.swift */,
 				690C97A523C4B0B400851216 /* AppCoordinator.swift */,
-				6924ADA223CC6127001251B7 /* Extensions */,
 				699C4EE523C5FD2C006A66BB /* Secret.swift */,
 				690C979123C4AD2B00851216 /* SceneDelegate.swift */,
 				690C979823C4AD2E00851216 /* Assets.xcassets */,

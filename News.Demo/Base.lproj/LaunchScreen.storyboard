@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -21,7 +21,7 @@
                                 <viewLayoutGuide key="safeArea" id="fT9-Xj-RPR"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Letter_N" translatesAutoresizingMaskIntoConstraints="NO" id="TjP-Pm-dez">
-                                <rect key="frame" x="140" y="344.66666666666669" width="134" height="216.66666666666669"/>
+                                <rect key="frame" x="140" y="344.5" width="134" height="217"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by NewsAPI.org" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Vb-zQ-WS1">
                                 <rect key="frame" x="77" y="104" width="260" height="29"/>
@@ -52,7 +52,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Letter_N" width="133.33332824707031" height="216.33332824707031"/>
+        <image name="Letter_N" width="133.5" height="216.5"/>
         <image name="Splash_Back" width="400" height="640"/>
     </resources>
 </document>
