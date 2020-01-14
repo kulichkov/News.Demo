@@ -14,10 +14,12 @@ class TopHeadlinesCoordinator: Coordinator {
 	var navigationController: UINavigationController?
 
 	//private let newsDataProvider: NewsDataProviderProtocol
-	private lazy var topHeadlinesVC = TopHeadlinesViewController()
+	private lazy var topHeadlinesVC = TopHeadlinesViewController(dataProvider: dataProvider)
+	private let dataProvider: NewsDataProviderProtocol
 
-	init(navigationController: UINavigationController) {
+	init(navigationController: UINavigationController, dataProvider: NewsDataProviderProtocol) {
 		self.navigationController = navigationController
+		self.dataProvider = dataProvider
 	}
 
 	func start() {

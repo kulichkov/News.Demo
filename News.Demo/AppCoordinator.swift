@@ -33,7 +33,8 @@ class AppCoordinator: Coordinator {
 //			}
 //		}
 
-		let topHeadlinesCoordinator = TopHeadlinesCoordinator(navigationController: navVC)
+		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
+			navigationController: navVC, dataProvider: dataProvider)
 		childCoordinators.append(topHeadlinesCoordinator)
 		topHeadlinesCoordinator.start()
 
