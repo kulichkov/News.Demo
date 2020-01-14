@@ -13,6 +13,7 @@ class TopHeadlinesViewController: UIViewController {
 	private let contentSidePadding: CGFloat = 10
 	private let dataSource: TopHeadlinesDataSource
 
+	@IBOutlet weak var mainActivityView: UIActivityIndicatorView!
 	@IBOutlet weak var collectionView: UICollectionView! {
 		didSet {
 			collectionView.dataSource = dataSource
@@ -35,8 +36,10 @@ class TopHeadlinesViewController: UIViewController {
 		super.viewDidLoad()
 		title = "Top Headlines"
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu_icon"), style: .plain, target: nil, action: nil)
-		dataSource.fetch { [weak collectionView] error in
-			collectionView?.reloadData()
+		mainActivityView.startAnimating()
+		dataSource.fetch { [weak self] error in
+			self?.mainActivityView.stopAnimating()
+			self?.collectionView.reloadData()
 			print(error ?? "NO ERROR")
 		}
 	}
