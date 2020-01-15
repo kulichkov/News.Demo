@@ -11,6 +11,9 @@ import UIKit
 final class TopHeadlinesDataSource: NSObject, UICollectionViewDataSource {
 	private let dataProvider: NewsDataProviderProtocol
 	private let articleCellID: String
+	private let refreshingLock = NSLock()
+	private var isRefreshable: Bool { !dataProvider.topHeadlines.isEmpty }
+	private var isRefreshing: Bool = false
 
 	init(dataProvider: NewsDataProviderProtocol, articleCellReuseID: String) {
 		self.dataProvider = dataProvider
@@ -35,9 +38,28 @@ final class TopHeadlinesDataSource: NSObject, UICollectionViewDataSource {
 		dataProvider.fetchMoreTopHeadlines { [weak self] error in
 			if let error = error {
 				print(error)
-				DispatchQueue.main.async { completion?(error) }
 			} else {
 				print("Now provider have got \(self?.dataProvider.topHeadlines.count ?? 0) top headlines")
+			}
+			DispatchQueue.main.async { completion?(error) }
+		}
+	}
+
+	func refresh(completion: NewsDataProviderProtocol.Completion?) {
+		guard isRefreshable && !isRefreshing else {
+			completion?(.fetchingInProgress)
+			return
+		}
+
+		setIsRefreshing(true)
+		print("Refreshing top headlines...")
+		dataProvider.fetchFreshTopHeadlines { [weak self] error in
+			self?.setIsRefreshing(false)
+			if let error = error {
+				DispatchQueue.main.async { completion?(error) }
+			} else {
+				print("Now provider have got fresh \(self?.dataProvider.topHeadlines.count ?? 0) top headlines")
+				print("Heading to fetch next pages...")
 				self?.fetch(completion: completion)
 			}
 		}
@@ -45,5 +67,11 @@ final class TopHeadlinesDataSource: NSObject, UICollectionViewDataSource {
 
 	subscript(index: Int) -> Article {
 		dataProvider.topHeadlines[index]
+	}
+
+	private func setIsRefreshing(_ value: Bool) {
+		refreshingLock.lock()
+		isRefreshing = value
+		refreshingLock.unlock()
 	}
 }

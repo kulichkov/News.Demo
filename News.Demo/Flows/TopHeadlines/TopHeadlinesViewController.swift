@@ -12,12 +12,19 @@ class TopHeadlinesViewController: UIViewController {
 	private let kArticleCellID = "ArticleCell"
 	private let contentSidePadding: CGFloat = 10
 	private let dataSource: TopHeadlinesDataSource
+	private lazy var refreshControl: UIRefreshControl = {
+		let control = UIRefreshControl()
+		control.tintColor = .white
+		control.addTarget(self, action: #selector(refreshControlValueChanged), for: .valueChanged)
+		return control
+	}()
 
 	@IBOutlet weak var mainActivityView: UIActivityIndicatorView!
 	@IBOutlet weak var collectionView: UICollectionView! {
 		didSet {
 			collectionView.dataSource = dataSource
 			collectionView.register(ArticleCollectionViewCell.nib, forCellWithReuseIdentifier: kArticleCellID)
+			//collectionView.refreshControl = refreshControl
 		}
 	}
 	@IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
@@ -47,6 +54,15 @@ class TopHeadlinesViewController: UIViewController {
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransition(to: size, with: coordinator)
 		collectionView.reloadData()
+	}
+
+	@objc
+	private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+		dataSource.refresh { [weak self] error in
+			self?.refreshControl.endRefreshing()
+			self?.collectionView.reloadData()
+			print(error ?? "NO ERROR")
+		}
 	}
 }
 
