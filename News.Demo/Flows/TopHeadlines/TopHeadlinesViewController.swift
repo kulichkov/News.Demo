@@ -10,8 +10,36 @@ import UIKit
 
 class TopHeadlinesViewController: UIViewController {
 	private let kArticleCellID = "ArticleCell"
+	private let kActivityFooterID = "ActivityFooter"
 	private let contentSidePadding: CGFloat = 10
+	private let fetchingPoint: CGFloat = 0.8
+	private var isFetching: Bool = false
 	private let dataSource: TopHeadlinesDataSource
+
+	private var hasToReload: Bool {
+		collectionView.indexPathsForVisibleItems.isEmpty ||
+		!collectionView.indexPathsForVisibleSupplementaryElements(
+			ofKind: UICollectionView.elementKindSectionFooter).isEmpty
+	}
+	private var isMainActivityVisible: Bool = false {
+		didSet {
+			switch isMainActivityVisible {
+			case true:
+				mainActivityView.startAnimating()
+			case false:
+				mainActivityView.stopAnimating()
+			}
+		}
+	}
+	private var isActivityFooterVisible: Bool = false {
+		didSet {
+			let context = UICollectionViewFlowLayoutInvalidationContext()
+			let elementsKind = UICollectionView.elementKindSectionFooter
+			let indexPaths = collectionView.indexPathsForVisibleSupplementaryElements(ofKind: elementsKind)
+			context.invalidateSupplementaryElements(ofKind: elementsKind, at: indexPaths)
+			flowLayout.invalidateLayout(with: context)
+		}
+	}
 	private lazy var refreshControl: UIRefreshControl = {
 		let control = UIRefreshControl()
 		control.tintColor = .white
@@ -24,6 +52,7 @@ class TopHeadlinesViewController: UIViewController {
 		didSet {
 			collectionView.dataSource = dataSource
 			collectionView.register(ArticleCollectionViewCell.nib, forCellWithReuseIdentifier: kArticleCellID)
+			collectionView.register(ActivityCollectionReusableView.nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: kActivityFooterID)
 			//collectionView.refreshControl = refreshControl
 		}
 	}
@@ -31,7 +60,7 @@ class TopHeadlinesViewController: UIViewController {
 
 	init(dataProvider: NewsDataProviderProtocol) {
 		dataSource = TopHeadlinesDataSource(
-			dataProvider: dataProvider, articleCellReuseID: kArticleCellID)
+			dataProvider: dataProvider, articleCellID: kArticleCellID, activityViewID: kActivityFooterID)
 		super.init(nibName: String(describing: type(of: self)), bundle: nil)
 	}
 
@@ -43,12 +72,7 @@ class TopHeadlinesViewController: UIViewController {
 		super.viewDidLoad()
 		title = "Top Headlines"
 		navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu_icon"), style: .plain, target: nil, action: nil)
-		mainActivityView.startAnimating()
-		dataSource.fetch { [weak self] error in
-			self?.mainActivityView.stopAnimating()
-			self?.collectionView.reloadData()
-			print(error ?? "NO ERROR")
-		}
+		fetch()
 	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -64,6 +88,28 @@ class TopHeadlinesViewController: UIViewController {
 			print(error ?? "NO ERROR")
 		}
 	}
+
+	private func fetch() {
+		guard !isFetching else {
+			print("dataSource is fetching already...")
+			return
+		}
+		guard !dataSource.noMoreData else {
+			print("There's no more data on server...")
+			return
+		}
+		isFetching = true
+		isActivityFooterVisible = !dataSource.isEmpty
+		isMainActivityVisible = dataSource.isEmpty
+		dataSource.fetch { [weak self] error in
+			print(error ?? "NO ERROR")
+			guard let strongSelf = self else { return }
+			strongSelf.isActivityFooterVisible = false
+			strongSelf.isMainActivityVisible = false
+			strongSelf.collectionView.reloadData()
+			strongSelf.isFetching = false
+		}
+	}
 }
 
 extension TopHeadlinesViewController: UICollectionViewDelegateFlowLayout {
@@ -71,5 +117,20 @@ extension TopHeadlinesViewController: UICollectionViewDelegateFlowLayout {
 		let width = collectionView.bounds.width - 2 * contentSidePadding
 		let height = ArticleCollectionViewCell.height(article: dataSource[indexPath.item], cellWidth: width)
 		return CGSize(width: width, height: height)
+	}
+
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+		return CGSize(width: collectionView.bounds.width, height: isActivityFooterVisible ? 50 : 0)
+	}
+}
+
+extension TopHeadlinesViewController: UICollectionViewDelegate {
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		let fullOffset = scrollView.contentSize.height - scrollView.bounds.height
+		print(String(format: "%0.2f", scrollView.contentOffset.y / fullOffset))
+		if scrollView.contentOffset.y >= fetchingPoint * fullOffset {
+			print("==== Offset to FETCH")
+			fetch()
+		}
 	}
 }
