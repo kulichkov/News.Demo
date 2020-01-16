@@ -47,8 +47,10 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 	func fetchFreshTopHeadlines(completion: Completion?) {
 		topHeadlinesFetchingTask?.cancel()
 		topHeadlinesFetchingTask = nil
-		topHeadlines.removeAll()
-		fetchTopHeadlines(page: 1, completion: completion)
+		fetchTopHeadlines(page: 1) { [weak self] error in
+			self?.topHeadlines.removeAll()
+			completion?(error)
+		}
 	}
 
 	func fetchMoreTopHeadlines(completion: Completion?) {

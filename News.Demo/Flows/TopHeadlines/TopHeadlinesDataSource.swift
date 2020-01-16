@@ -30,16 +30,7 @@ final class TopHeadlinesDataSource: NSObject {
 		}
 		print("Fetching new pack of top headlines...")
 		dataProvider.fetchMoreTopHeadlines { [weak self] error in
-			switch error {
-			case .noMoreData:
-				self?.noMoreData = true
-				fallthrough
-			case .some:
-				print(error!)
-			default:
-				print("Now provider have got \(self?.dataProvider.topHeadlines.count ?? 0) top headlines")
-			}
-			DispatchQueue.main.async { completion?(error) }
+			self?.runCompletion(completion, error: error)
 		}
 	}
 
@@ -53,14 +44,21 @@ final class TopHeadlinesDataSource: NSObject {
 		print("Refreshing top headlines...")
 		dataProvider.fetchFreshTopHeadlines { [weak self] error in
 			self?.setIsRefreshing(false)
-			if let error = error {
-				DispatchQueue.main.async { completion?(error) }
-			} else {
-				print("Now provider have got fresh \(self?.dataProvider.topHeadlines.count ?? 0) top headlines")
-				print("Heading to fetch next pages...")
-				self?.fetch(completion: completion)
-			}
+			self?.runCompletion(completion, error: error)
 		}
+	}
+
+	private func runCompletion(_ completion: NewsDataProviderProtocol.Completion?, error: NewsDataProviderError?) {
+		switch error {
+		case .noMoreData:
+			noMoreData = true
+			fallthrough
+		case .some:
+			print(error!)
+		default:
+			print("Now provider have got \(dataProvider.topHeadlines.count) top headlines")
+		}
+		DispatchQueue.main.async { completion?(error) }
 	}
 
 	private func setIsRefreshing(_ value: Bool) {

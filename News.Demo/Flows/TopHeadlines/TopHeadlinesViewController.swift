@@ -53,7 +53,7 @@ class TopHeadlinesViewController: UIViewController {
 			collectionView.dataSource = dataSource
 			collectionView.register(ArticleCollectionViewCell.nib, forCellWithReuseIdentifier: kArticleCellID)
 			collectionView.register(ActivityCollectionReusableView.nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: kActivityFooterID)
-			//collectionView.refreshControl = refreshControl
+			collectionView.refreshControl = refreshControl
 		}
 	}
 	@IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
