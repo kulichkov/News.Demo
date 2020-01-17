@@ -85,7 +85,6 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 			completion?(.fetchingInProgress)
 			return
 		}
-
 		print("Page:", page)
 		topHeadlinesFetchingTask = newsRepository.getTopHeadlines(
 			category: category?.rawValue,
@@ -111,11 +110,7 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 						}
 						let fetchedArticles = response.articles ?? []
 						print("Got \(fetchedArticles.count) top headlines of \(response.totalResults ?? 0) from server")
-						if page > 1 {
-							strongSelf.topHeadlines.append(contentsOf: fetchedArticles)
-						} else {
-							strongSelf.topHeadlines = fetchedArticles
-						}
+						strongSelf.updateTopHeadlines(page: page, newHeadlines: fetchedArticles)
 						if (fetchedArticles.count < strongSelf.pageSize) ||
 							(strongSelf.topHeadlines.count == response.totalResults) {
 							resultError = .noMoreData
@@ -130,6 +125,14 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 				}
 				strongSelf.topHeadlinesFetchingTask = nil
 				completion?(resultError) }
+	}
+
+	private func updateTopHeadlines(page: Int, newHeadlines: [Article]) {
+		if page > 1 {
+			topHeadlines.append(contentsOf: newHeadlines)
+		} else {
+			topHeadlines = newHeadlines
+		}
 	}
 
 }
