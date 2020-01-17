@@ -24,8 +24,9 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 		pageSize > 0 ? (topHeadlines.count / pageSize) + 1 : 1
 	}
 
-	private let isFetchingLock = NSLock()
-	private var isFetching: Bool = false
+	private var isFetching: Bool {
+		topHeadlinesFetchingTask != nil
+	}
 	private var topHeadlinesFetchingTask: URLSessionTask?
 	private let newsRepository: NewsRepositoryProtocol
 
@@ -44,8 +45,7 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 	// MARK: - Public functions
 	func fetchFreshTopHeadlines(completion: Completion?) {
 		topHeadlinesFetchingTask?.cancel()
-		topHeadlines.removeAll()
-		setIsFetching(to: false)
+		topHeadlinesFetchingTask = nil
 		fetchTopHeadlines(page: 1, completion: completion)
 	}
 
@@ -85,7 +85,6 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 			completion?(.fetchingInProgress)
 			return
 		}
-		setIsFetching(to: true)
 
 		print("Page:", page)
 		topHeadlinesFetchingTask = newsRepository.getTopHeadlines(
@@ -107,12 +106,16 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 						let response = try JSONDecoder().decode(TopHeadlinesResponse.self, from: data)
 						guard response.status == .ok else {
 							completion?(.fetchingError(response.code, response.message))
-							strongSelf.setIsFetching(to: false)
+							strongSelf.topHeadlinesFetchingTask = nil
 							return
 						}
 						let fetchedArticles = response.articles ?? []
 						print("Got \(fetchedArticles.count) top headlines of \(response.totalResults ?? 0) from server")
-						strongSelf.topHeadlines.append(contentsOf: fetchedArticles)
+						if page > 1 {
+							strongSelf.topHeadlines.append(contentsOf: fetchedArticles)
+						} else {
+							strongSelf.topHeadlines = fetchedArticles
+						}
 						if (fetchedArticles.count < strongSelf.pageSize) ||
 							(strongSelf.topHeadlines.count == response.totalResults) {
 							resultError = .noMoreData
@@ -125,14 +128,8 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 				case .failure(let error):
 					resultError = .repositoryError(error)
 				}
-				strongSelf.setIsFetching(to: false)
+				strongSelf.topHeadlinesFetchingTask = nil
 				completion?(resultError) }
-	}
-
-	private func setIsFetching(to isFetching: Bool) {
-		isFetchingLock.lock()
-		self.isFetching = false
-		isFetchingLock.unlock()
 	}
 
 }

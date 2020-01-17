@@ -1,5 +1,5 @@
 //
-//  UICollectionViewCell+Extension.swift
+//  UIView+Extension.swift
 //  News.Demo
 //
 //  Created by Mikhail Kulichkov on 13.01.2020.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-extension UICollectionViewCell {
+extension UIView {
 	static var nib: UINib { UINib(nibName: String(describing: self), bundle: nil) }
 }
