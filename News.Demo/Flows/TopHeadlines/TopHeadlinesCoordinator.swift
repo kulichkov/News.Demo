@@ -13,7 +13,6 @@ class TopHeadlinesCoordinator: Coordinator {
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
 
-	//private let newsDataProvider: NewsDataProviderProtocol
 	private lazy var topHeadlinesVC = TopHeadlinesViewController(dataProvider: dataProvider)
 	private let dataProvider: NewsDataProviderProtocol
 

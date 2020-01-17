@@ -14,6 +14,7 @@ class TopHeadlinesViewController: UIViewController {
 	private let contentSidePadding: CGFloat = 10
 	private let fetchingPoint: CGFloat = 0.8
 	private var isFetching: Bool = false
+	// TODO: Come up with more good idea of refreshing
 	private let dataSource: TopHeadlinesDataSource
 
 	private var hasToReload: Bool {
@@ -82,6 +83,7 @@ class TopHeadlinesViewController: UIViewController {
 
 	@objc
 	private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+		collectionView.sendSubviewToBack(refreshControl)
 		dataSource.refresh { [weak self] error in
 			self?.refreshControl.endRefreshing()
 			self?.collectionView.reloadData()
@@ -128,8 +130,8 @@ extension TopHeadlinesViewController: UICollectionViewDelegate {
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let fullOffset = scrollView.contentSize.height - scrollView.bounds.height
 		print(String(format: "%0.2f", scrollView.contentOffset.y / fullOffset))
-		if scrollView.contentOffset.y >= fetchingPoint * fullOffset {
-			print("==== Offset to FETCH")
+		if scrollView.contentOffset.y > 0, scrollView.contentOffset.y >= fetchingPoint * fullOffset {
+			//print("==== Offset to FETCH")
 			fetch()
 		}
 	}

@@ -24,7 +24,6 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 		pageSize > 0 ? (topHeadlines.count / pageSize) + 1 : 1
 	}
 
-	//private let isFetchingLock = NSLock()
 	private var isFetching: Bool {
 		topHeadlinesFetchingTask != nil
 	}
@@ -47,10 +46,7 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 	func fetchFreshTopHeadlines(completion: Completion?) {
 		topHeadlinesFetchingTask?.cancel()
 		topHeadlinesFetchingTask = nil
-		fetchTopHeadlines(page: 1) { [weak self] error in
-			self?.topHeadlines.removeAll()
-			completion?(error)
-		}
+		fetchTopHeadlines(page: 1, completion: completion)
 	}
 
 	func fetchMoreTopHeadlines(completion: Completion?) {
@@ -115,7 +111,11 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 						}
 						let fetchedArticles = response.articles ?? []
 						print("Got \(fetchedArticles.count) top headlines of \(response.totalResults ?? 0) from server")
-						strongSelf.topHeadlines.append(contentsOf: fetchedArticles)
+						if page > 1 {
+							strongSelf.topHeadlines.append(contentsOf: fetchedArticles)
+						} else {
+							strongSelf.topHeadlines = fetchedArticles
+						}
 						if (fetchedArticles.count < strongSelf.pageSize) ||
 							(strongSelf.topHeadlines.count == response.totalResults) {
 							resultError = .noMoreData
@@ -131,11 +131,5 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 				strongSelf.topHeadlinesFetchingTask = nil
 				completion?(resultError) }
 	}
-
-//	private func setIsFetching(to isFetching: Bool) {
-//		isFetchingLock.lock()
-//		self.isFetching = false
-//		isFetchingLock.unlock()
-//	}
 
 }
