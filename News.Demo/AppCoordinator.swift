@@ -20,15 +20,17 @@ class AppCoordinator: Coordinator {
 	}
 
 	func start() {
-		let navVC = UINavigationController()
+		let redVC = UIViewController()
+		redVC.view.backgroundColor = .red
+		let navVC = UINavigationController(rootViewController: redVC)
 		navigationController = navVC
-
-		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
-			navigationController: navVC, dataProvider: dataProvider)
-		childCoordinators.append(topHeadlinesCoordinator)
-		topHeadlinesCoordinator.start()
-
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()
+
+//		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
+//			navigationController: navVC, dataProvider: dataProvider)
+		let menuCoordinator = SlideMenuCoordinator(navigationController: navVC)
+		childCoordinators.append(menuCoordinator)
+		menuCoordinator.start()
 	}
 }
