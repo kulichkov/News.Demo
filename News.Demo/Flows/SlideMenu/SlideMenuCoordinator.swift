@@ -12,14 +12,13 @@ class SlideMenuCoordinator: Coordinator {
 
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
-	lazy var menuVC = UIViewController()
+	lazy var menuVC = SlideMenuViewController()
 
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
 	}
 
 	func start() {
-		menuVC.view.backgroundColor = .blue
 		navigationController?.present(menuVC, animated: false, completion: nil)
 	}
 
