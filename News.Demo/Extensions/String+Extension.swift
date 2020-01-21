@@ -23,3 +23,7 @@ extension String {
 		return ceil(boundingBox.width)
 	}
 }
+
+extension String: MenuItem {
+	var title: String { self }
+}

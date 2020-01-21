@@ -8,6 +8,6 @@
 
 import Foundation
 
-enum NewsCategory: String, Codable {
+enum NewsCategory: String, Codable, CaseIterable {
 	case business, entertainment, general, health, science, sports, technology
 }
