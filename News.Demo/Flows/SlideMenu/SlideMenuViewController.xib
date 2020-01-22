@@ -10,6 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SlideMenuViewController" customModule="News_Demo" customModuleProvider="target">
             <connections>
+                <outlet property="backItemButton" destination="9pr-G4-hOn" id="XTC-rP-LLj"/>
+                <outlet property="itemsStackView" destination="32n-pF-udc" id="tR7-XG-kfi"/>
+                <outlet property="menuTitleLabel" destination="axR-Sb-FGZ" id="88p-Oh-xOF"/>
+                <outlet property="scrollView" destination="Irz-dI-Deh" id="1ze-4Q-hXr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,14 +25,16 @@
                 <scrollView clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Irz-dI-Deh">
                     <rect key="frame" x="16" y="433.5" width="310.5" height="39"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="32n-pF-udc">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="32n-pF-udc">
                             <rect key="frame" x="0.0" y="0.0" width="310.5" height="39"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVc-9d-pI9">
                                     <rect key="frame" x="0.0" y="0.0" width="42" height="39"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Item"/>
+                                    <state key="normal" title="Item">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
                                 </button>
                             </subviews>
                         </stackView>

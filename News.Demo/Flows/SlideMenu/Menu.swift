@@ -15,7 +15,7 @@ protocol MenuItem {
 struct Menu {
 	let title: String
 	let items: [MenuItem]
-	let backItemTitle: MenuItem?
+	let backItem: MenuItem?
 }
 
 extension Menu: MenuItem {}
