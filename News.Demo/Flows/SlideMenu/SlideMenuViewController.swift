@@ -13,6 +13,9 @@ protocol SlideMenuViewControllerDelegate: class {
 }
 
 class SlideMenuViewController: UIViewController {
+	@IBOutlet weak var menuTitleLabel: UILabel!
+	@IBOutlet weak var backItemButton: UIButton!
+	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
 
 	weak var delegate: SlideMenuViewControllerDelegate?
@@ -33,6 +36,12 @@ class SlideMenuViewController: UIViewController {
 	}
 
 	private func setupUI(menu: Menu) {
+		menuTitleLabel.text = menu.title
+
+		// Setting back item
+		backItemButton.setTitle(menu.backItem?.title, for: .normal)
+		backItemButton.isHidden = menu.backItem == nil
+
 		collectionViewHeightConstraint.constant = 100
 	}
 }

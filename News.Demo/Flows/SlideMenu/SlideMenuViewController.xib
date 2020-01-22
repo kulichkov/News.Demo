@@ -10,7 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SlideMenuViewController" customModule="News_Demo" customModuleProvider="target">
             <connections>
+                <outlet property="backItemButton" destination="vJI-RG-0qS" id="eDT-iQ-Sej"/>
+                <outlet property="collectionView" destination="URp-42-8n8" id="vwG-bk-N7O"/>
                 <outlet property="collectionViewHeightConstraint" destination="Adx-zT-JbZ" id="3j0-eN-hzA"/>
+                <outlet property="menuTitleLabel" destination="5LZ-at-JxG" id="Vve-SB-Csx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
