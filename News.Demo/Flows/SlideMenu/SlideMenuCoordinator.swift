@@ -52,15 +52,6 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 	func controller(_ controller: SlideMenuViewController, didPressItem item: MenuItem) {
 		if let menu = item as? Menu {
 			menuVC.menu = menu
-//			if menu == settingsMenu {
-//				print("settings menu selected")
-//			} else if menu == countryMenu {
-//				print("country menu selected")
-//			} else if menu == languageMenu {
-//				print("language menu selected")
-//			} else if menu == categoryMenu {
-//				print("category menu selected")
-//			}
 		} else if let language = item as? Language {
 			print("language selected:", language.title)
 		} else if let category = item as? NewsCategory {
