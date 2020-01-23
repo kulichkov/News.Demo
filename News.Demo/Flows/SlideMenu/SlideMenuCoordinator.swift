@@ -11,9 +11,13 @@ import UIKit
 class SlideMenuCoordinator: Coordinator {
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
-	lazy var menuVC = SlideMenuViewController(menu: countryMenu)
+	lazy var menuVC: SlideMenuViewController = {
+		let menuVC = SlideMenuViewController(menu: categoryMenu)
+		menuVC.delegate = self
+		return menuVC
+	}()
 
-	private let settingsMenuItem: MenuItem = "Settings"
+	private let settingsMenuItem = "Settings"
 	private lazy var categoryMenu = Menu(
 		title: "Category",
 		items: NewsCategory.allCases.sorted(),
@@ -30,7 +34,7 @@ class SlideMenuCoordinator: Coordinator {
 		backItem: settingsMenuItem)
 
 	private lazy var settingsMenu: Menu = Menu(
-		title: "Setings",
+		title: "Settings",
 		items: [categoryMenu, countryMenu, languageMenu],
 		backItem: nil)
 
@@ -42,4 +46,34 @@ class SlideMenuCoordinator: Coordinator {
 		navigationController?.present(menuVC, animated: false, completion: nil)
 	}
 
+}
+
+extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
+	func controller(_ controller: SlideMenuViewController, didPressItem item: MenuItem) {
+		if let menu = item as? Menu {
+			menuVC.menu = menu
+//			if menu == settingsMenu {
+//				print("settings menu selected")
+//			} else if menu == countryMenu {
+//				print("country menu selected")
+//			} else if menu == languageMenu {
+//				print("language menu selected")
+//			} else if menu == categoryMenu {
+//				print("category menu selected")
+//			}
+		} else if let language = item as? Language {
+			print("language selected:", language.title)
+		} else if let category = item as? NewsCategory {
+			print("category selected:", category.title)
+		} else if let country = item as? Country {
+			print("country selected:", country.title)
+		} else if let item = item as? String {
+			switch item {
+			case settingsMenuItem:
+				menuVC.menu = settingsMenu
+			default:
+				break
+			}
+		}
+	}
 }
