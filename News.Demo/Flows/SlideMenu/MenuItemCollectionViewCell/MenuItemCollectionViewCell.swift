@@ -26,6 +26,11 @@ class MenuItemCollectionViewCell: UICollectionViewCell {
 		}
 	}
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		menuItemLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+	}
+
 	static func height(item: MenuItem, cellWidth: CGFloat) -> CGFloat {
 		item.title.height(
 			withConstrainedWidth: cellWidth,

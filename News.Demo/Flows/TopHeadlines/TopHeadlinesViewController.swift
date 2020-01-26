@@ -81,6 +81,11 @@ class TopHeadlinesViewController: UIViewController {
 		collectionView.reloadData()
 	}
 
+	func refreshAppearance() {
+		print("Refreshing appearance")
+		collectionView.reloadData()
+	}
+
 	@objc
 	private func refreshControlValueChanged(_ sender: UIRefreshControl) {
 		collectionView.sendSubviewToBack(refreshControl)

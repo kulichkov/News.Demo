@@ -19,10 +19,17 @@ class TopHeadlinesCoordinator: Coordinator {
 	init(navigationController: UINavigationController, dataProvider: NewsDataProviderProtocol) {
 		self.navigationController = navigationController
 		self.dataProvider = dataProvider
+		NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 
 	func start() {
 		navigationController?.pushViewController(topHeadlinesVC, animated: false)
 	}
 
+	@objc
+	private func handleNotification(_ notification: Notification) {
+		if notification.name == UIContentSizeCategory.didChangeNotification {
+			topHeadlinesVC.refreshAppearance()
+		}
+	}
 }

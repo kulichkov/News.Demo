@@ -15,6 +15,15 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var sourceLabel: UILabel!
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		dateLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+		titleLabel.font = UIFont.preferredFont(forTextStyle: .headline)
+		authorLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+		descriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
+		sourceLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+	}
+
 	func fill(article: Article) {
 		dateLabel.text = article.publishedAt
 		titleLabel.text = article.title
