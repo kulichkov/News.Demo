@@ -38,11 +38,15 @@ class SlideMenuCoordinator: Coordinator {
 		items: [categoryMenu, countryMenu, languageMenu],
 		backItem: nil)
 
-	init(navigationController: UINavigationController) {
-		self.navigationController = navigationController
+	init(coordinator: Coordinator) {
+		self.childCoordinators = [coordinator]
 	}
 
 	func start() {
+		childCoordinators.first?.start()
+	}
+
+	func showMenu() {
 		navigationController?.present(menuVC, animated: false, completion: nil)
 	}
 
