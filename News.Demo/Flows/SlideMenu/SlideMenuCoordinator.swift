@@ -72,3 +72,5 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 		}
 	}
 }
+
+extension SlideMenuCoordinator: Refreshable {}

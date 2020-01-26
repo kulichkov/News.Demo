@@ -17,6 +17,7 @@ class AppCoordinator: Coordinator {
 
 	init(window: UIWindow) {
 		self.window = window
+		NotificationCenter.default.addObserver(self, selector: #selector(handleNotification), name: UIContentSizeCategory.didChangeNotification, object: nil)
 	}
 
 	func start() {
@@ -32,5 +33,12 @@ class AppCoordinator: Coordinator {
 		let menuCoordinator = SlideMenuCoordinator(coordinator: topHeadlinesCoordinator)
 		childCoordinators.append(menuCoordinator)
 		menuCoordinator.start()
+	}
+
+	@objc
+	private func handleNotification(_ notification: Notification) {
+		if notification.name == UIContentSizeCategory.didChangeNotification {
+			refreshChildCoordinators()
+		}
 	}
 }
