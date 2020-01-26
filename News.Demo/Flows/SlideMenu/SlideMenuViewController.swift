@@ -23,13 +23,15 @@ class SlideMenuViewController: UIViewController {
 			collectionView.delegate = self
 		}
 	}
+	@IBOutlet weak var topFadingView: FadingView!
+	@IBOutlet weak var topFadingViewHeight: NSLayoutConstraint!
+	@IBOutlet weak var bottomFadingView: FadingView!
+	@IBOutlet weak var bottomFadingViewHeight: NSLayoutConstraint!
 	@IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
 
 	weak var delegate: SlideMenuViewControllerDelegate?
 	var menu: Menu {
 		didSet {
-			dataSource.menu = menu
-			collectionView.reloadData()
 			setupUI(menu: menu)
 		}
 	}
@@ -54,6 +56,12 @@ class SlideMenuViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupUI(menu: menu)
+		setupFadingViews()
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+		updateFadings()
 	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -62,6 +70,9 @@ class SlideMenuViewController: UIViewController {
 	}
 
 	private func setupUI(menu: Menu) {
+		dataSource.menu = menu
+		collectionView.reloadData()
+
 		menuTitleLabel.text = menu.title
 
 		// Setting back item
@@ -73,6 +84,27 @@ class SlideMenuViewController: UIViewController {
 		collectionViewHeightConstraint.constant = dataSource.reduce(initialHeight) { (result, item) -> CGFloat in
 			result + MenuItemCollectionViewCell.height(item: item, cellWidth: collectionView.bounds.width)
 		}
+	}
+
+	private func setupFadingViews() {
+		let fadingViewHeight = max(44, MenuItemCollectionViewCell.height(
+			item: "Item", cellWidth: collectionView.bounds.width))
+		topFadingViewHeight.constant = fadingViewHeight
+		bottomFadingViewHeight.constant = fadingViewHeight
+	}
+
+	private func updateFadings() {
+		guard topFadingView.bounds.height > 0, bottomFadingView.bounds.height > 0 else { return }
+
+		let scrollViewHeight: CGFloat = collectionView.bounds.height
+		let scrollContentSizeHeight: CGFloat = collectionViewHeightConstraint.constant
+		let scrollOffset: CGFloat = collectionView.contentOffset.y
+
+		let topAlpha: CGFloat = max(0, min(scrollOffset, topFadingView.bounds.height)) / topFadingView.bounds.height
+		let bottomAlpha: CGFloat = max(0, min(scrollContentSizeHeight - scrollViewHeight - scrollOffset, bottomFadingView.bounds.height)) / bottomFadingView.bounds.height
+
+		topFadingView.alpha = topAlpha
+		bottomFadingView.alpha = bottomAlpha
 	}
 
 	@objc
@@ -95,5 +127,9 @@ extension SlideMenuViewController: UICollectionViewDelegateFlowLayout {
 extension SlideMenuViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		delegate?.controller(self, didPressItem: dataSource[indexPath.item])
+	}
+
+	func scrollViewDidScroll(_ scrollView: UIScrollView) {
+		updateFadings()
 	}
 }

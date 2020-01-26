@@ -11,10 +11,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SlideMenuViewController" customModule="News_Demo" customModuleProvider="target">
             <connections>
                 <outlet property="backItemButton" destination="vJI-RG-0qS" id="eDT-iQ-Sej"/>
+                <outlet property="bottomFadingView" destination="Isg-ta-TZn" id="yWG-ZJ-viZ"/>
+                <outlet property="bottomFadingViewHeight" destination="vsA-4g-Ao7" id="S1I-VY-K3m"/>
                 <outlet property="collectionView" destination="URp-42-8n8" id="vwG-bk-N7O"/>
                 <outlet property="collectionViewFlowLayout" destination="0Wy-W3-wDJ" id="cXC-0g-vYS"/>
                 <outlet property="collectionViewHeightConstraint" destination="Adx-zT-JbZ" id="3j0-eN-hzA"/>
                 <outlet property="menuTitleLabel" destination="5LZ-at-JxG" id="Vve-SB-Csx"/>
+                <outlet property="topFadingView" destination="eGB-HK-vqd" id="53o-BQ-jMs"/>
+                <outlet property="topFadingViewHeight" destination="lmL-YO-YdW" id="VAm-ZO-M8E"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -49,15 +53,45 @@
                     <color key="textColor" red="0.67881719559999998" green="0.67881719559999998" blue="0.67881719559999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Isg-ta-TZn" customClass="FadingView" customModule="News_Demo" customModuleProvider="target">
+                    <rect key="frame" x="16" y="731" width="310.5" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="vsA-4g-Ao7"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="directionName" value="up"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="fadingColor">
+                            <color key="value" red="0.1254739761" green="0.1255018711" blue="0.12546801569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGB-HK-vqd" customClass="FadingView" customModule="News_Demo" customModuleProvider="target">
+                    <rect key="frame" x="16" y="131" width="310.5" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="lmL-YO-YdW"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="directionName" value="down"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="fadingColor">
+                            <color key="value" red="0.1254739761" green="0.1255018711" blue="0.12546801569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.1254739761" green="0.1255018711" blue="0.12546801569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Isg-ta-TZn" firstAttribute="trailing" secondItem="URp-42-8n8" secondAttribute="trailing" id="1ps-If-iGF"/>
                 <constraint firstItem="URp-42-8n8" firstAttribute="top" secondItem="5LZ-at-JxG" secondAttribute="bottom" constant="24" id="4kz-Bh-GgE"/>
+                <constraint firstItem="eGB-HK-vqd" firstAttribute="top" secondItem="URp-42-8n8" secondAttribute="top" id="AZi-TB-ecv"/>
+                <constraint firstItem="eGB-HK-vqd" firstAttribute="trailing" secondItem="URp-42-8n8" secondAttribute="trailing" id="AeJ-67-Mvi"/>
+                <constraint firstItem="Isg-ta-TZn" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="BhL-NZ-IMN"/>
                 <constraint firstItem="URp-42-8n8" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.75" id="HnP-ns-dbo"/>
+                <constraint firstItem="Isg-ta-TZn" firstAttribute="bottom" secondItem="URp-42-8n8" secondAttribute="bottom" id="Nyf-cq-by4"/>
                 <constraint firstItem="5LZ-at-JxG" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="T12-MR-Zyt"/>
                 <constraint firstItem="URp-42-8n8" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Wzh-Zy-mQK"/>
                 <constraint firstItem="vJI-RG-0qS" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-16" id="buz-39-Sty"/>
                 <constraint firstItem="URp-42-8n8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="coY-ha-Lxy"/>
+                <constraint firstItem="eGB-HK-vqd" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="eB7-yk-qDf"/>
                 <constraint firstItem="vJI-RG-0qS" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="URp-42-8n8" secondAttribute="trailing" id="fGI-65-jp5"/>
                 <constraint firstItem="vJI-RG-0qS" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="gLs-T7-9Fp"/>
                 <constraint firstItem="vJI-RG-0qS" firstAttribute="top" secondItem="URp-42-8n8" secondAttribute="bottom" constant="24" id="kRy-i9-qk3"/>
