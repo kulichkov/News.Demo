@@ -28,9 +28,10 @@ class AppCoordinator: Coordinator {
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()
 
-		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
-			navigationController: navVC, dataProvider: dataProvider)
-		let menuCoordinator = SlideMenuCoordinator(coordinator: topHeadlinesCoordinator)
+//		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
+//			navigationController: navVC, dataProvider: dataProvider)
+		let menuControlledCoordinator = MenuControlledCoordinator(navigationController: navVC)
+		let menuCoordinator = SlideMenuCoordinator(coordinator: menuControlledCoordinator)
 		childCoordinators.append(menuCoordinator)
 		menuCoordinator.start()
 	}

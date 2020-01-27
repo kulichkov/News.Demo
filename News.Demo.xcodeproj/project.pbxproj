@@ -51,6 +51,8 @@
 		69B8147F23D71A490044975C /* NewsCategory+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8147E23D71A490044975C /* NewsCategory+Extension.swift */; };
 		69B8148123D71B070044975C /* Country+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8148023D71B070044975C /* Country+Extension.swift */; };
 		69B8148323D71D070044975C /* Language+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B8148223D71D070044975C /* Language+Extension.swift */; };
+		69CF090323DE099C002374F8 /* MenuControlledCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF090223DE099C002374F8 /* MenuControlledCoordinator.swift */; };
+		69CF090523DE0AF4002374F8 /* MenuControlledViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF090423DE0AF4002374F8 /* MenuControlledViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		69B8147E23D71A490044975C /* NewsCategory+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewsCategory+Extension.swift"; sourceTree = "<group>"; };
 		69B8148023D71B070044975C /* Country+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Country+Extension.swift"; sourceTree = "<group>"; };
 		69B8148223D71D070044975C /* Language+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Language+Extension.swift"; sourceTree = "<group>"; };
+		69CF090223DE099C002374F8 /* MenuControlledCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuControlledCoordinator.swift; sourceTree = "<group>"; };
+		69CF090423DE0AF4002374F8 /* MenuControlledViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuControlledViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				69B8147C23D598450044975C /* Menu.swift */,
+				69CF090223DE099C002374F8 /* MenuControlledCoordinator.swift */,
+				69CF090423DE0AF4002374F8 /* MenuControlledViewController.swift */,
 				69B297A623D88158001F8E26 /* MenuItemCollectionViewCell */,
 				697E081923D1E08E004EEE52 /* SlideMenuCoordinator.swift */,
 				69B297A023D87FD7001F8E26 /* SlideMenuDataSource.swift */,
@@ -392,6 +398,8 @@
 				699C4EFD23C6158C006A66BB /* Country.swift in Sources */,
 				699C4EF923C6158C006A66BB /* SortingType.swift in Sources */,
 				699C4F0223C61DC0006A66BB /* ResponseStatus.swift in Sources */,
+				69CF090523DE0AF4002374F8 /* MenuControlledViewController.swift in Sources */,
+				69CF090323DE099C002374F8 /* MenuControlledCoordinator.swift in Sources */,
 				699C4EE923C604DE006A66BB /* NewsRepositoryProtocol.swift in Sources */,
 				6924AD9923CBD19A001251B7 /* TopHeadlinesCoordinator.swift in Sources */,
 				690C97A423C4B05A00851216 /* Coordinator.swift in Sources */,
