@@ -9,7 +9,6 @@
 import UIKit
 
 class TopHeadlinesCoordinator: Coordinator {
-
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
 
@@ -24,5 +23,11 @@ class TopHeadlinesCoordinator: Coordinator {
 	func start() {
 		navigationController?.pushViewController(topHeadlinesVC, animated: false)
 	}
+}
 
+extension TopHeadlinesCoordinator: Refreshable {
+	func refresh() {
+		topHeadlinesVC.refreshAppearance()
+		refreshChildCoordinators()
+	}
 }

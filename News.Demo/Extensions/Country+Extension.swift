@@ -20,7 +20,7 @@ extension Country: MenuItem {
 		case .belgium:
 			return "Belgium"
 		case .brazil:
-			return "Belgium"
+			return "Brazil"
 		case .bulgaria:
 			return "Bulgaria"
 		case .canada:

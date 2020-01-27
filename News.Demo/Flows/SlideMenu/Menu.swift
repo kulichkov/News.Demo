@@ -19,3 +19,10 @@ struct Menu {
 }
 
 extension Menu: MenuItem {}
+
+extension Menu: Equatable {
+	static func == (lhs: Menu, rhs: Menu) -> Bool {
+		lhs.title == rhs.title &&
+			lhs.items.map { $0.title } == rhs.items.map { $0.title }
+	}
+}
