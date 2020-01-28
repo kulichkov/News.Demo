@@ -29,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="URp-42-8n8">
-                    <rect key="frame" x="16" y="131" width="248.5" height="644"/>
+                    <rect key="frame" x="16" y="147" width="248.5" height="612"/>
                     <color key="backgroundColor" red="0.1254739761" green="0.1255018711" blue="0.12546801569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="250" constant="786" id="Adx-zT-JbZ"/>
@@ -42,20 +42,20 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJI-RG-0qS">
-                    <rect key="frame" x="16" y="799" width="94" height="47"/>
+                    <rect key="frame" x="16" y="783" width="94" height="47"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                     <state key="normal" title="Back Item"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LZ-at-JxG">
-                    <rect key="frame" x="16" y="66" width="154" height="41"/>
+                    <rect key="frame" x="16" y="82" width="154" height="41"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                     <color key="textColor" red="0.67881719559999998" green="0.67881719559999998" blue="0.67881719559999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Isg-ta-TZn" customClass="FadingView" customModule="News_Demo" customModuleProvider="target">
-                    <rect key="frame" x="16" y="731" width="248.5" height="44"/>
+                    <rect key="frame" x="16" y="715" width="248.5" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="vsA-4g-Ao7"/>
                     </constraints>
@@ -67,7 +67,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGB-HK-vqd" customClass="FadingView" customModule="News_Demo" customModuleProvider="target">
-                    <rect key="frame" x="16" y="131" width="248.5" height="44"/>
+                    <rect key="frame" x="16" y="147" width="248.5" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="lmL-YO-YdW"/>
                     </constraints>
@@ -96,7 +96,7 @@
                 <constraint firstItem="5LZ-at-JxG" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="T12-MR-Zyt"/>
                 <constraint firstItem="URp-42-8n8" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Wzh-Zy-mQK"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6rM-vB-xhH" secondAttribute="trailing" id="ajo-yw-FYw"/>
-                <constraint firstItem="vJI-RG-0qS" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-16" id="buz-39-Sty"/>
+                <constraint firstItem="vJI-RG-0qS" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-32" id="buz-39-Sty"/>
                 <constraint firstItem="URp-42-8n8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="coY-ha-Lxy"/>
                 <constraint firstItem="6rM-vB-xhH" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="trailing" id="dXv-70-uAL"/>
                 <constraint firstItem="eGB-HK-vqd" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="eB7-yk-qDf"/>

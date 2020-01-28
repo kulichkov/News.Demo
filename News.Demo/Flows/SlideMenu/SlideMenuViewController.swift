@@ -70,6 +70,16 @@ class SlideMenuViewController: UIViewController {
 		collectionView.reloadData()
 	}
 
+	// MARK: - Public functions
+	func refreshUI() {
+		menuTitleLabel.font = UIFont.preferredFont(forTextStyle: .largeTitle)
+		backItemButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .title2)
+		setCollectionViewHeight()
+		collectionView.reloadData()
+		setupFadingViews()
+	}
+
+	// MARK: - Private functions
 	private func setupUI(menu: Menu) {
 		dataSource.menu = menu
 		collectionView.reloadData()
@@ -80,7 +90,10 @@ class SlideMenuViewController: UIViewController {
 		backItemButton.setTitle(menu.backItem?.title, for: .normal)
 		backItemButton.isHidden = menu.backItem == nil
 
-		// Setting collection view height
+		setCollectionViewHeight()
+	}
+
+	private func setCollectionViewHeight() {
 		let initialHeight: CGFloat = CGFloat(dataSource.count - 1) * collectionViewFlowLayout.minimumLineSpacing
 		collectionViewHeightConstraint.constant = dataSource.reduce(initialHeight) { (result, item) -> CGFloat in
 			result + MenuItemCollectionViewCell.height(item: item, cellWidth: collectionView.bounds.width)

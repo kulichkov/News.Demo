@@ -77,7 +77,12 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 	}
 }
 
-extension SlideMenuCoordinator: Refreshable {}
+extension SlideMenuCoordinator: Refreshable {
+	func refresh() {
+		menuVC.refreshUI()
+		refreshChildCoordinators()
+	}
+}
 
 extension SlideMenuCoordinator: MenuControlledCoordinatorDelegate {
 	func coordinatorDidPressMenuBarButton(_ coordinator: MenuControlledCoordinator) {
