@@ -16,6 +16,7 @@
                 <outlet property="collectionView" destination="URp-42-8n8" id="vwG-bk-N7O"/>
                 <outlet property="collectionViewFlowLayout" destination="0Wy-W3-wDJ" id="cXC-0g-vYS"/>
                 <outlet property="collectionViewHeightConstraint" destination="Adx-zT-JbZ" id="3j0-eN-hzA"/>
+                <outlet property="dismissButton" destination="6rM-vB-xhH" id="eu7-4e-sFY"/>
                 <outlet property="menuTitleLabel" destination="5LZ-at-JxG" id="Vve-SB-Csx"/>
                 <outlet property="topFadingView" destination="eGB-HK-vqd" id="53o-BQ-jMs"/>
                 <outlet property="topFadingViewHeight" destination="lmL-YO-YdW" id="VAm-ZO-M8E"/>
@@ -28,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="URp-42-8n8">
-                    <rect key="frame" x="16" y="131" width="310.5" height="644"/>
+                    <rect key="frame" x="16" y="131" width="248.5" height="644"/>
                     <color key="backgroundColor" red="0.1254739761" green="0.1255018711" blue="0.12546801569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" priority="250" constant="786" id="Adx-zT-JbZ"/>
@@ -54,7 +55,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Isg-ta-TZn" customClass="FadingView" customModule="News_Demo" customModuleProvider="target">
-                    <rect key="frame" x="16" y="731" width="310.5" height="44"/>
+                    <rect key="frame" x="16" y="731" width="248.5" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="vsA-4g-Ao7"/>
                     </constraints>
@@ -66,7 +67,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGB-HK-vqd" customClass="FadingView" customModule="News_Demo" customModuleProvider="target">
-                    <rect key="frame" x="16" y="131" width="310.5" height="44"/>
+                    <rect key="frame" x="16" y="131" width="248.5" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="lmL-YO-YdW"/>
                     </constraints>
@@ -77,6 +78,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rM-vB-xhH">
+                    <rect key="frame" x="264.5" y="44" width="149.5" height="818"/>
+                    <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.1254739761" green="0.1255018711" blue="0.12546801569999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -85,18 +90,22 @@
                 <constraint firstItem="eGB-HK-vqd" firstAttribute="top" secondItem="URp-42-8n8" secondAttribute="top" id="AZi-TB-ecv"/>
                 <constraint firstItem="eGB-HK-vqd" firstAttribute="trailing" secondItem="URp-42-8n8" secondAttribute="trailing" id="AeJ-67-Mvi"/>
                 <constraint firstItem="Isg-ta-TZn" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="BhL-NZ-IMN"/>
-                <constraint firstItem="URp-42-8n8" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.75" id="HnP-ns-dbo"/>
+                <constraint firstItem="URp-42-8n8" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.6" id="HnP-ns-dbo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="6rM-vB-xhH" secondAttribute="bottom" id="Igk-v0-lJg"/>
                 <constraint firstItem="Isg-ta-TZn" firstAttribute="bottom" secondItem="URp-42-8n8" secondAttribute="bottom" id="Nyf-cq-by4"/>
                 <constraint firstItem="5LZ-at-JxG" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="T12-MR-Zyt"/>
                 <constraint firstItem="URp-42-8n8" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="Wzh-Zy-mQK"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6rM-vB-xhH" secondAttribute="trailing" id="ajo-yw-FYw"/>
                 <constraint firstItem="vJI-RG-0qS" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-16" id="buz-39-Sty"/>
                 <constraint firstItem="URp-42-8n8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="coY-ha-Lxy"/>
+                <constraint firstItem="6rM-vB-xhH" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="trailing" id="dXv-70-uAL"/>
                 <constraint firstItem="eGB-HK-vqd" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="eB7-yk-qDf"/>
                 <constraint firstItem="vJI-RG-0qS" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="URp-42-8n8" secondAttribute="trailing" id="fGI-65-jp5"/>
                 <constraint firstItem="vJI-RG-0qS" firstAttribute="leading" secondItem="URp-42-8n8" secondAttribute="leading" id="gLs-T7-9Fp"/>
                 <constraint firstItem="vJI-RG-0qS" firstAttribute="top" secondItem="URp-42-8n8" secondAttribute="bottom" constant="24" id="kRy-i9-qk3"/>
                 <constraint firstItem="5LZ-at-JxG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="16" id="piJ-so-MgO"/>
                 <constraint firstItem="5LZ-at-JxG" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="URp-42-8n8" secondAttribute="trailing" id="v03-Rd-QqE"/>
+                <constraint firstItem="6rM-vB-xhH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="yAA-7d-fh2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="107.8125"/>

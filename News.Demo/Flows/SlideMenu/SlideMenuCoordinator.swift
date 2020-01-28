@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SlideMenuCoordinator: Coordinator {
+class SlideMenuCoordinator: NSObject, Coordinator {
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
 	lazy var menuVC: SlideMenuViewController = {
@@ -16,6 +16,8 @@ class SlideMenuCoordinator: Coordinator {
 		menuVC.delegate = self
 		return menuVC
 	}()
+	private var currentCoordinator: Coordinator? { childCoordinators.first }
+	private lazy var interactor = MenuInteractor()
 
 	private let settingsMenuItem = "Settings"
 	private lazy var categoryMenu = Menu(
@@ -43,11 +45,13 @@ class SlideMenuCoordinator: Coordinator {
 	}
 
 	func start() {
-		childCoordinators.first?.start()
+		(currentCoordinator as? MenuControlledCoordinator)?.delegate = self
+		currentCoordinator?.start()
 	}
 
 	func showMenu() {
-		navigationController?.present(menuVC, animated: false, completion: nil)
+		menuVC.transitioningDelegate = self
+		currentCoordinator?.navigationController?.present(menuVC, animated: true, completion: nil)
 	}
 
 }
@@ -74,3 +78,28 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 }
 
 extension SlideMenuCoordinator: Refreshable {}
+
+extension SlideMenuCoordinator: MenuControlledCoordinatorDelegate {
+	func coordinatorDidPressMenuBarButton(_ coordinator: MenuControlledCoordinator) {
+		showMenu()
+	}
+}
+
+extension SlideMenuCoordinator: UIViewControllerTransitioningDelegate {
+	func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		return MenuPresentAnimator()
+	}
+
+//	func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//		return MenuDismissAnimator()
+//	}
+
+	func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+		return interactor.hasStarted ? interactor : nil
+	}
+
+	func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+		return interactor.hasStarted ? interactor : nil
+	}
+
+}

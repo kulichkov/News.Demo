@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol MenuControlledCoordinatorDelegate: class {
+	func coordinatorDidPressMenuBarButton(_ coordinator: MenuControlledCoordinator)
+}
+
 class MenuControlledCoordinator: Coordinator {
 	var childCoordinators: [Coordinator] = []
-
 	var navigationController: UINavigationController?
+
+	weak var delegate: MenuControlledCoordinatorDelegate?
 
 	let viewController = MenuControlledViewController()
 
@@ -27,6 +32,6 @@ class MenuControlledCoordinator: Coordinator {
 
 extension MenuControlledCoordinator: MenuControlledViewControllerDelegate {
 	func viewControllerDidPressMenuBarButton(_ viewController: MenuControlledViewController) {
-		print("viewControllerDidPressMenuBarButton")
+		delegate?.coordinatorDidPressMenuBarButton(self)
 	}
 }

@@ -28,6 +28,7 @@ class SlideMenuViewController: UIViewController {
 	@IBOutlet weak var bottomFadingView: FadingView!
 	@IBOutlet weak var bottomFadingViewHeight: NSLayoutConstraint!
 	@IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+	@IBOutlet weak var dismissButton: UIButton!
 
 	weak var delegate: SlideMenuViewControllerDelegate?
 	var menu: Menu {
