@@ -1,27 +1,34 @@
 //
-//  MenuPresentAnimator.swift
+//  MenuDismissAnimator.swift
 //  News.Demo
 //
-//  Created by Mikhail Kulichkov on 27.01.2020.
+//  Created by Mikhail Kulichkov on 29.01.2020.
 //  Copyright © 2020 Kulichkov. All rights reserved.
 //
 
 import UIKit
 
-class MenuPresentAnimator: NSObject {}
+class MenuDismissAnimator: NSObject {}
 
-extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
+extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 	func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-		0.4
+		0.3
 	}
 
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-		guard let fromVC = transitionContext.viewController(forKey: .from),
-			let slideMenuVC = transitionContext.viewController(forKey: .to) as? SlideMenuViewController else {
+		guard let slideMenuVC = transitionContext.viewController(forKey: .from) as? SlideMenuViewController,
+			let toVC = transitionContext.viewController(forKey: .to)
+		else {
 				return
 		}
 
-		guard let snapshot = fromVC.view.snapshotView(afterScreenUpdates: true) else {
+		let containerView = transitionContext.containerView
+		containerView.addSubview(slideMenuVC.view)
+
+		slideMenuVC.view.frame.size.width = containerView.bounds.width
+		slideMenuVC.view.frame.size.height = containerView.bounds.height
+
+		guard let snapshot = toVC.view.snapshotView(afterScreenUpdates: true) else {
 			return
 		}
 //		snapshot?.tag = MenuHelper.snapshotTag
@@ -32,26 +39,25 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 //		if let snapshot = snapshot {
 //			containerView.insertSubview(snapshot, belowSubview: slideMenuVC.dismissButton)
 //		}
+		slideMenuVC.slidingView.subviews.first?.removeFromSuperview()
 		slideMenuVC.slidingView.addSubview(snapshot)
 
-		let containerView = transitionContext.containerView
-		containerView.insertSubview(slideMenuVC.view, belowSubview: fromVC.view)
-
-		slideMenuVC.view.frame.size.width = containerView.bounds.width
-		slideMenuVC.view.frame.size.height = containerView.bounds.height
-		fromVC.view.isHidden = true
+//		fromVC.view.isHidden = true
 
 		// Animation
 		UIView.animate(
 			withDuration: transitionDuration(using: transitionContext),
 			delay: 0,
 			options: .curveEaseOut,
-			animations: { let translationX = slideMenuVC.dismissButton.frame.origin.x
-				slideMenuVC.slidingViewLeading.constant = translationX
-				slideMenuVC.slidingView.transform = CGAffineTransform(scaleX: 0.9, y: 0.9) },
+			animations: { slideMenuVC.slidingViewLeading.constant = 0
+				slideMenuVC.slidingView.transform = .identity },
 			completion: { _ in
-				fromVC.view.isHidden = false
-			 	transitionContext.completeTransition(!transitionContext.transitionWasCancelled) })
+				let didTransitionComplete = !transitionContext.transitionWasCancelled
+				if didTransitionComplete {
+					//containerView.insertSubview(toVC.view, aboveSubview: slideMenuVC.view)
+					snapshot.removeFromSuperview()
+				}
+				transitionContext.completeTransition(didTransitionComplete) })
 
 /*
 		// Menu items animation

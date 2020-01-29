@@ -54,9 +54,19 @@ class SlideMenuCoordinator: NSObject, Coordinator {
 		currentCoordinator?.navigationController?.present(menuVC, animated: true, completion: nil)
 	}
 
+	func hideMenu() {
+		print("Dismissing menu")
+		menuVC.transitioningDelegate = self
+		menuVC.dismiss(animated: true, completion: nil)
+	}
+
 }
 
 extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
+	func controllerDidPressDismissButton(_ controller: SlideMenuViewController) {
+		hideMenu()
+	}
+
 	func controller(_ controller: SlideMenuViewController, didPressItem item: MenuItem) {
 		if let menu = item as? Menu {
 			menuVC.menu = menu
@@ -95,9 +105,9 @@ extension SlideMenuCoordinator: UIViewControllerTransitioningDelegate {
 		return MenuPresentAnimator()
 	}
 
-//	func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//		return MenuDismissAnimator()
-//	}
+	func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		return MenuDismissAnimator()
+	}
 
 	func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
 		return interactor.hasStarted ? interactor : nil

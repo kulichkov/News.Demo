@@ -23,6 +23,7 @@ class MenuControlledCoordinator: Coordinator {
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
 		viewController.delegate = self
+		viewController.view.backgroundColor = .yellow
 	}
 
 	func start() {

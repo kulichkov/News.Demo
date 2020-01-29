@@ -10,6 +10,7 @@ import UIKit
 
 protocol SlideMenuViewControllerDelegate: class {
 	func controller(_ controller: SlideMenuViewController, didPressItem item: MenuItem)
+	func controllerDidPressDismissButton(_ controller: SlideMenuViewController)
 }
 
 class SlideMenuViewController: UIViewController {
@@ -28,8 +29,14 @@ class SlideMenuViewController: UIViewController {
 	@IBOutlet weak var bottomFadingView: FadingView!
 	@IBOutlet weak var bottomFadingViewHeight: NSLayoutConstraint!
 	@IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
-	@IBOutlet weak var dismissButton: UIButton!
-
+	@IBOutlet weak var dismissButton: UIButton! {
+		didSet {
+			dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
+		}
+	}
+	@IBOutlet weak var slidingView: UIView!
+	@IBOutlet weak var slidingViewLeading: NSLayoutConstraint!
+	
 	weak var delegate: SlideMenuViewControllerDelegate?
 	var menu: Menu {
 		didSet {
@@ -125,6 +132,11 @@ class SlideMenuViewController: UIViewController {
 	private func backItemButtonPressed(_ sender: UIButton) {
 		guard let backItem = menu.backItem else { return }
 		delegate?.controller(self, didPressItem: backItem)
+	}
+
+	@objc
+	private func dismissButtonPressed(_ sender: UIButton) {
+		delegate?.controllerDidPressDismissButton(self)
 	}
 }
 
