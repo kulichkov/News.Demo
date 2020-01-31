@@ -58,6 +58,7 @@
 		69CF090C23DEE444002374F8 /* MenuInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF090B23DEE444002374F8 /* MenuInteractor.swift */; };
 		69CF090E23E0A683002374F8 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF090D23E0A683002374F8 /* UIViewController+Extension.swift */; };
 		69CF091023E17153002374F8 /* MenuDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF090F23E17153002374F8 /* MenuDismissAnimator.swift */; };
+		69CF091423E2B379002374F8 /* NewsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF091323E2B379002374F8 /* NewsNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +115,7 @@
 		69CF090B23DEE444002374F8 /* MenuInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInteractor.swift; sourceTree = "<group>"; };
 		69CF090D23E0A683002374F8 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		69CF090F23E17153002374F8 /* MenuDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDismissAnimator.swift; sourceTree = "<group>"; };
+		69CF091323E2B379002374F8 /* NewsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				691DEAF223DDFD900058FE93 /* Protocols */,
 				690C978F23C4AD2B00851216 /* AppDelegate.swift */,
 				690C97A523C4B0B400851216 /* AppCoordinator.swift */,
+				69CF091323E2B379002374F8 /* NewsNavigationController.swift */,
 				699C4EE523C5FD2C006A66BB /* Secret.swift */,
 				690C979123C4AD2B00851216 /* SceneDelegate.swift */,
 				690C979823C4AD2E00851216 /* Assets.xcassets */,
@@ -436,6 +439,7 @@
 				6924ADA523CC6C64001251B7 /* ArticleCollectionViewCell.swift in Sources */,
 				699C4EE623C5FD2C006A66BB /* Secret.swift in Sources */,
 				69CF090E23E0A683002374F8 /* UIViewController+Extension.swift in Sources */,
+				69CF091423E2B379002374F8 /* NewsNavigationController.swift in Sources */,
 				699C4F0723C72A9F006A66BB /* TopHeadlinesResponse.swift in Sources */,
 				69B8148123D71B070044975C /* Country+Extension.swift in Sources */,
 				699C4EFC23C6158C006A66BB /* Language.swift in Sources */,

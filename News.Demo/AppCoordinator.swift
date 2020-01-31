@@ -23,7 +23,7 @@ class AppCoordinator: Coordinator {
 	func start() {
 		let redVC = UIViewController()
 		redVC.view.backgroundColor = .red
-		let navVC = UINavigationController(rootViewController: redVC)
+		let navVC = NewsNavigationController(rootViewController: redVC)
 		navigationController = navVC
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()

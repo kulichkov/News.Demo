@@ -27,7 +27,7 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 
 		slideMenuVC.view.frame.size.width = containerView.bounds.width
 		slideMenuVC.view.frame.size.height = containerView.bounds.height
-
+/*
 		guard let snapshot = toVC.view.snapshotView(afterScreenUpdates: true) else {
 			return
 		}
@@ -39,6 +39,7 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 //		if let snapshot = snapshot {
 //			containerView.insertSubview(snapshot, belowSubview: slideMenuVC.dismissButton)
 //		}
+	
 		slideMenuVC.slidingView.subviews.first?.removeFromSuperview()
 		slideMenuVC.slidingView.addSubview(snapshot)
 
@@ -58,7 +59,7 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 					snapshot.removeFromSuperview()
 				}
 				transitionContext.completeTransition(didTransitionComplete) })
-
+*/
 /*
 		// Menu items animation
 		for menuItem in slideMenuVC.btnMenuItems {

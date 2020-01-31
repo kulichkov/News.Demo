@@ -34,9 +34,7 @@ class SlideMenuViewController: UIViewController {
 			dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
 		}
 	}
-	@IBOutlet weak var slidingView: UIView!
-	@IBOutlet weak var slidingViewLeading: NSLayoutConstraint!
-	
+
 	weak var delegate: SlideMenuViewControllerDelegate?
 	var menu: Menu {
 		didSet {
@@ -46,6 +44,9 @@ class SlideMenuViewController: UIViewController {
 
 	private let kMenuItemCellID = "MenuItemCellID"
 	private lazy var dataSource = SlideMenuDataSource(menu: menu, menuItemCellID: kMenuItemCellID)
+
+	// For iOS 11 because in this version it doesn't matter if navVC isn't rotating.
+	override var shouldAutorotate: Bool { false }
 
 	init(menu: Menu) {
 		self.menu = menu
