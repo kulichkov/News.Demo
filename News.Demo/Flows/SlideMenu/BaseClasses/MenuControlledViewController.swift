@@ -15,6 +15,10 @@ protocol MenuControlledViewControllerDelegate: class {
 class MenuControlledViewController: UIViewController {
 	weak var delegate: MenuControlledViewControllerDelegate?
 
+	var autorotation: Bool = true
+
+	override var shouldAutorotate: Bool { autorotation }
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "Menu Controlled"

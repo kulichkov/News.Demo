@@ -9,7 +9,19 @@
 import UIKit
 
 class NewsNavigationController: UINavigationController {
-	var autorotation: Bool = true
+	var autorotation: Bool = true {
+		didSet {
+			viewControllers.forEach {
+				($0 as? MenuControlledViewController)?.autorotation = autorotation
+			}
+		}
+	}
 
-	override var shouldAutorotate: Bool { autorotation }
+	override var shouldAutorotate: Bool {
+		if #available(iOS 13.0, *) {
+			return autorotation
+		} else {
+			return true
+		}
+	}
 }

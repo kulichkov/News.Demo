@@ -18,30 +18,21 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 		let snapshotScale: CGFloat = 0.9
 
-		guard let fromVC = transitionContext.viewController(forKey: .from) as? NewsNavigationController,
+		guard let navVC = transitionContext.viewController(forKey: .from) as? NewsNavigationController,
 			let slideMenuVC = transitionContext.viewController(forKey: .to) as? SlideMenuViewController else {
 				return
 		}
 
-		guard let snapshot = fromVC.view.snapshotView(afterScreenUpdates: true) else {
+		guard let snapshot = navVC.view.snapshotView(afterScreenUpdates: true) else {
 			return
 		}
 		snapshot.isUserInteractionEnabled = false
 		snapshot.layer.shadowOpacity = 1
 		snapshot.layer.shadowRadius = 20
-//		snapshot?.tag = MenuHelper.snapshotTag
-//		snapshot?.isUserInteractionEnabled = false
-//		snapshot?.layer.shadowOpacity = 1
-//		snapshot?.layer.shadowRadius = 20
-
-//		if let snapshot = snapshot {
-//			containerView.insertSubview(snapshot, belowSubview: slideMenuVC.dismissButton)
-//		}
-
-		//slideMenuVC.slidingView.addSubview(snapshot)
+		snapshot.tag = MenuHelper.snapshotTag
 
 		let containerView = transitionContext.containerView
-		containerView.insertSubview(slideMenuVC.view, belowSubview: fromVC.view)
+		containerView.insertSubview(slideMenuVC.view, belowSubview: navVC.view)
 		containerView.addSubview(snapshot)
 
 		slideMenuVC.view.frame.size.width = containerView.bounds.width
@@ -50,8 +41,8 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 
 		let snapshotScaleOffset = slideMenuVC.dismissButton.frame.origin.x
 			- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
-		fromVC.autorotation = false
-		fromVC.view.isHidden = true
+		navVC.autorotation = false
+		navVC.view.isHidden = true
 
 		// Animation
 		UIView.animate(
@@ -62,7 +53,7 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 				snapshot.transform = translate
 					.concatenating(CGAffineTransform(translationX: snapshotScaleOffset, y: 0)) },
 			completion: { _ in
-				fromVC.view.isHidden = false
+				navVC.view.isHidden = false
 			 	transitionContext.completeTransition(!transitionContext.transitionWasCancelled) })
 /*
 		// Menu items animation

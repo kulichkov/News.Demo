@@ -17,49 +17,46 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 		guard let slideMenuVC = transitionContext.viewController(forKey: .from) as? SlideMenuViewController,
-			let toVC = transitionContext.viewController(forKey: .to)
+			let navVC = transitionContext.viewController(forKey: .to) as? NewsNavigationController
 		else {
 				return
 		}
+		// Solving rotation problem during menu presentation
+		// https://stackoverflow.com/questions/31969524
+		navVC.view.frame = transitionContext.finalFrame(for: navVC)
 
 		let containerView = transitionContext.containerView
 		containerView.addSubview(slideMenuVC.view)
 
-		slideMenuVC.view.frame.size.width = containerView.bounds.width
-		slideMenuVC.view.frame.size.height = containerView.bounds.height
-/*
-		guard let snapshot = toVC.view.snapshotView(afterScreenUpdates: true) else {
+		guard let oldSnapshot = containerView.viewWithTag(MenuHelper.snapshotTag),
+			let snapshot = navVC.view.snapshotView(afterScreenUpdates: true) else {
 			return
 		}
-//		snapshot?.tag = MenuHelper.snapshotTag
-//		snapshot?.isUserInteractionEnabled = false
-//		snapshot?.layer.shadowOpacity = 1
-//		snapshot?.layer.shadowRadius = 20
 
-//		if let snapshot = snapshot {
-//			containerView.insertSubview(snapshot, belowSubview: slideMenuVC.dismissButton)
-//		}
-	
-		slideMenuVC.slidingView.subviews.first?.removeFromSuperview()
-		slideMenuVC.slidingView.addSubview(snapshot)
+		slideMenuVC.view.frame.size.width = containerView.bounds.width
+		slideMenuVC.view.frame.size.height = containerView.bounds.height
 
-//		fromVC.view.isHidden = true
+		snapshot.isUserInteractionEnabled = false
+		snapshot.layer.shadowOpacity = 1
+		snapshot.layer.shadowRadius = 20
+		snapshot.transform = oldSnapshot.transform
+		containerView.insertSubview(snapshot, aboveSubview: slideMenuVC.view)
+		oldSnapshot.removeFromSuperview()
 
 		// Animation
 		UIView.animate(
 			withDuration: transitionDuration(using: transitionContext),
 			delay: 0,
 			options: .curveEaseOut,
-			animations: { slideMenuVC.slidingViewLeading.constant = 0
-				slideMenuVC.slidingView.transform = .identity },
+			animations: { snapshot.transform = .identity },
 			completion: { _ in
 				let didTransitionComplete = !transitionContext.transitionWasCancelled
 				if didTransitionComplete {
-					//containerView.insertSubview(toVC.view, aboveSubview: slideMenuVC.view)
 					snapshot.removeFromSuperview()
+					navVC.autorotation = true
 				}
 				transitionContext.completeTransition(didTransitionComplete) })
-*/
+
 /*
 		// Menu items animation
 		for menuItem in slideMenuVC.btnMenuItems {

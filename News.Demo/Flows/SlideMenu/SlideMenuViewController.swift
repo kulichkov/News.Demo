@@ -45,7 +45,6 @@ class SlideMenuViewController: UIViewController {
 	private let kMenuItemCellID = "MenuItemCellID"
 	private lazy var dataSource = SlideMenuDataSource(menu: menu, menuItemCellID: kMenuItemCellID)
 
-	// For iOS 11 because in this version it doesn't matter if navVC isn't rotating.
 	override var shouldAutorotate: Bool { false }
 
 	init(menu: Menu) {

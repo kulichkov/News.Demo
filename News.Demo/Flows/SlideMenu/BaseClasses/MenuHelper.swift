@@ -20,7 +20,7 @@ struct MenuHelper {
 
 	//static let menuWidthRatio: CGFloat = 0.6
 	static let percentThreshold: CGFloat = 0.3
-	//static let snapshotTag = 11111
+	static let snapshotTag = 11111
 
 	static func calculateProgress(translationInView: CGPoint, viewBounds: CGRect, direction: MenuSlideDirection) -> CGFloat {
 		let pointOnAxis: CGFloat
