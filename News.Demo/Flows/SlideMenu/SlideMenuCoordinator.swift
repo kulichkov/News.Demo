@@ -16,7 +16,9 @@ class SlideMenuCoordinator: NSObject, Coordinator {
 		menuVC.delegate = self
 		return menuVC
 	}()
-	private var currentCoordinator: Coordinator? { childCoordinators.first }
+	private var currentCoordinator: MenuControlledCoordinator? {
+		childCoordinators.first as? MenuControlledCoordinator
+	}
 	private lazy var interactor = MenuInteractor()
 
 	private let settingsMenuItem = "Settings"
@@ -40,24 +42,24 @@ class SlideMenuCoordinator: NSObject, Coordinator {
 		items: [categoryMenu, countryMenu, languageMenu],
 		backItem: nil)
 
-	init(coordinator: Coordinator) {
+	init(coordinator: MenuControlledCoordinator) {
 		self.childCoordinators = [coordinator]
+		super.init()
+		currentCoordinator?.delegate = self
 	}
 
 	func start() {
-		(currentCoordinator as? MenuControlledCoordinator)?.delegate = self
 		currentCoordinator?.start()
 	}
 
 	func showMenu() {
 		menuVC.transitioningDelegate = self
-		currentCoordinator?.navigationController?.present(menuVC, animated: true, completion: nil)
+		currentCoordinator?.navigationController?.present(menuVC, animated: true)
 	}
 
 	func hideMenu() {
-		print("Dismissing menu")
 		menuVC.transitioningDelegate = self
-		menuVC.dismiss(animated: true, completion: nil)
+		menuVC.dismiss(animated: true)
 	}
 
 	func handlePanRecognizer(_ panGestureRecognizer: UIPanGestureRecognizer, view: UIView, direction: MenuSlideDirection) {

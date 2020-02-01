@@ -16,15 +16,13 @@ protocol MenuControlledCoordinatorDelegate: class {
 class MenuControlledCoordinator: Coordinator {
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
-
+	let viewController: MenuControlledViewController
 	weak var delegate: MenuControlledCoordinatorDelegate?
 
-	let viewController = MenuControlledViewController()
-
-	init(navigationController: UINavigationController) {
+	init(navigationController: UINavigationController, viewController: MenuControlledViewController) {
 		self.navigationController = navigationController
+		self.viewController = viewController
 		viewController.delegate = self
-		viewController.view.backgroundColor = .yellow
 	}
 
 	func start() {
