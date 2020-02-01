@@ -10,6 +10,7 @@ import UIKit
 
 protocol MenuControlledViewControllerDelegate: class {
 	func viewControllerDidPressMenuBarButton(_ viewController: MenuControlledViewController)
+	func viewController(_ viewController: MenuControlledViewController, didPanGestureWithRecognizer panGestureRecognizer: UIPanGestureRecognizer)
 }
 
 class MenuControlledViewController: UIViewController {
@@ -24,10 +25,17 @@ class MenuControlledViewController: UIViewController {
 		title = "Menu Controlled"
 		navigationItem.leftBarButtonItem = UIBarButtonItem(
 			image: #imageLiteral(resourceName: "menu_icon"), style: .plain, target: self, action: #selector(menuBarButtonPressed))
+		let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+		view.addGestureRecognizer(panGestureRecognizer)
 	}
 
 	@objc
 	private func menuBarButtonPressed(_ sender: UIBarButtonItem) {
 		delegate?.viewControllerDidPressMenuBarButton(self)
+	}
+
+	@objc
+	private func handlePanGesture(sender: UIPanGestureRecognizer) {
+		delegate?.viewController(self, didPanGestureWithRecognizer: sender)
 	}
 }

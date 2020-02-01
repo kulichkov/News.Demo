@@ -10,6 +10,7 @@ import UIKit
 
 protocol MenuControlledCoordinatorDelegate: class {
 	func coordinatorDidPressMenuBarButton(_ coordinator: MenuControlledCoordinator)
+	func coordinator(_ coordinator: MenuControlledCoordinator, didHandlePanGestureRecognizer panGestureRecognizer: UIPanGestureRecognizer)
 }
 
 class MenuControlledCoordinator: Coordinator {
@@ -34,5 +35,9 @@ class MenuControlledCoordinator: Coordinator {
 extension MenuControlledCoordinator: MenuControlledViewControllerDelegate {
 	func viewControllerDidPressMenuBarButton(_ viewController: MenuControlledViewController) {
 		delegate?.coordinatorDidPressMenuBarButton(self)
+	}
+
+	func viewController(_ viewController: MenuControlledViewController, didPanGestureWithRecognizer panGestureRecognizer: UIPanGestureRecognizer) {
+		delegate?.coordinator(self, didHandlePanGestureRecognizer: panGestureRecognizer)
 	}
 }

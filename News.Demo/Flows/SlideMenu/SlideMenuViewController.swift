@@ -11,6 +11,7 @@ import UIKit
 protocol SlideMenuViewControllerDelegate: class {
 	func controller(_ controller: SlideMenuViewController, didPressItem item: MenuItem)
 	func controllerDidPressDismissButton(_ controller: SlideMenuViewController)
+	func controller(_ controller: SlideMenuViewController, didPanGestureWithRecognizer panGestureRecognizer: UIPanGestureRecognizer)
 }
 
 class SlideMenuViewController: UIViewController {
@@ -59,6 +60,8 @@ class SlideMenuViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		backItemButton.addTarget(self, action: #selector(backItemButtonPressed), for: .touchUpInside)
+		let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
+		view.addGestureRecognizer(panGestureRecognizer)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -137,6 +140,11 @@ class SlideMenuViewController: UIViewController {
 	@objc
 	private func dismissButtonPressed(_ sender: UIButton) {
 		delegate?.controllerDidPressDismissButton(self)
+	}
+
+	@objc
+	private func handlePanGesture(sender: UIPanGestureRecognizer) {
+		delegate?.controller(self, didPanGestureWithRecognizer: sender)
 	}
 }
 

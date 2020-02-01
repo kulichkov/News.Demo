@@ -21,24 +21,22 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 		else {
 				return
 		}
+
 		// Solving rotation problem during menu presentation
 		// https://stackoverflow.com/questions/31969524
 		navVC.view.frame = transitionContext.finalFrame(for: navVC)
 
 		let containerView = transitionContext.containerView
-		containerView.addSubview(slideMenuVC.view)
 
 		guard let oldSnapshot = containerView.viewWithTag(MenuHelper.snapshotTag),
 			let snapshot = navVC.view.snapshotView(afterScreenUpdates: true) else {
 			return
 		}
 
-		slideMenuVC.view.frame.size.width = containerView.bounds.width
-		slideMenuVC.view.frame.size.height = containerView.bounds.height
-
 		snapshot.isUserInteractionEnabled = false
 		snapshot.layer.shadowOpacity = 1
 		snapshot.layer.shadowRadius = 20
+		snapshot.tag = MenuHelper.snapshotTag
 		snapshot.transform = oldSnapshot.transform
 		containerView.insertSubview(snapshot, aboveSubview: slideMenuVC.view)
 		oldSnapshot.removeFromSuperview()
@@ -52,8 +50,8 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 			completion: { _ in
 				let didTransitionComplete = !transitionContext.transitionWasCancelled
 				if didTransitionComplete {
-					snapshot.removeFromSuperview()
 					navVC.autorotation = true
+					snapshot.removeFromSuperview()
 				}
 				transitionContext.completeTransition(didTransitionComplete) })
 

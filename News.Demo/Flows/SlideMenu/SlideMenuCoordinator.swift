@@ -60,9 +60,23 @@ class SlideMenuCoordinator: NSObject, Coordinator {
 		menuVC.dismiss(animated: true, completion: nil)
 	}
 
+	func handlePanRecognizer(_ panGestureRecognizer: UIPanGestureRecognizer, view: UIView, direction: MenuSlideDirection) {
+		let translation = panGestureRecognizer.translation(in: view)
+		let progress = MenuHelper.calculateProgress(translationInView: translation, viewBounds: view.bounds, direction: direction)
+
+		MenuHelper.mapGestureStateToInteractor(
+			gestureState: panGestureRecognizer.state,
+			progress: progress,
+			interactor: interactor,
+			triggerSegue: { direction == .right ? showMenu() : hideMenu() })
+	}
 }
 
 extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
+	func controller(_ controller: SlideMenuViewController, didPanGestureWithRecognizer panGestureRecognizer: UIPanGestureRecognizer) {
+		handlePanRecognizer(panGestureRecognizer, view: controller.view, direction: .left)
+	}
+
 	func controllerDidPressDismissButton(_ controller: SlideMenuViewController) {
 		hideMenu()
 	}
@@ -95,6 +109,10 @@ extension SlideMenuCoordinator: Refreshable {
 }
 
 extension SlideMenuCoordinator: MenuControlledCoordinatorDelegate {
+	func coordinator(_ coordinator: MenuControlledCoordinator, didHandlePanGestureRecognizer panGestureRecognizer: UIPanGestureRecognizer) {
+		handlePanRecognizer(panGestureRecognizer, view: coordinator.viewController.view, direction: .right)
+	}
+
 	func coordinatorDidPressMenuBarButton(_ coordinator: MenuControlledCoordinator) {
 		showMenu()
 	}
