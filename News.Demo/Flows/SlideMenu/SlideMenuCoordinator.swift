@@ -54,6 +54,7 @@ class SlideMenuCoordinator: NSObject, Coordinator {
 
 	func showMenu() {
 		menuVC.transitioningDelegate = self
+		menuVC.modalPresentationStyle = .fullScreen
 		currentCoordinator?.navigationController?.present(menuVC, animated: true)
 	}
 

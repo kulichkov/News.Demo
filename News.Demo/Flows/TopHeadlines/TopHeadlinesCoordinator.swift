@@ -8,20 +8,14 @@
 
 import UIKit
 
-class TopHeadlinesCoordinator: Coordinator {
-	var childCoordinators: [Coordinator] = []
-	var navigationController: UINavigationController?
-
-	private lazy var topHeadlinesVC = TopHeadlinesViewController(dataProvider: dataProvider)
+class TopHeadlinesCoordinator: MenuControlledCoordinator {
+	private let topHeadlinesVC: TopHeadlinesViewController
 	private let dataProvider: NewsDataProviderProtocol
 
 	init(navigationController: UINavigationController, dataProvider: NewsDataProviderProtocol) {
-		self.navigationController = navigationController
 		self.dataProvider = dataProvider
-	}
-
-	func start() {
-		navigationController?.pushViewController(topHeadlinesVC, animated: false)
+		self.topHeadlinesVC = TopHeadlinesViewController(dataProvider: dataProvider)
+		super.init(navigationController: navigationController, viewController: topHeadlinesVC)
 	}
 }
 

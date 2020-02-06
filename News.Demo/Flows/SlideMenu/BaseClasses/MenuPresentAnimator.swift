@@ -18,7 +18,7 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 		let snapshotScale: CGFloat = 0.9
 
-		guard let navVC = transitionContext.viewController(forKey: .from) as? NewsNavigationController,
+		guard let navVC = transitionContext.viewController(forKey: .from) as? UINavigationController,
 			let slideMenuVC = transitionContext.viewController(forKey: .to) as? SlideMenuViewController else {
 				return
 		}
@@ -41,7 +41,6 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 
 		let snapshotScaleOffset = slideMenuVC.dismissButton.frame.origin.x
 			- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
-		navVC.autorotation = false
 		navVC.view.isHidden = true
 
 		// Animation

@@ -46,8 +46,6 @@ class SlideMenuViewController: UIViewController {
 	private let kMenuItemCellID = "MenuItemCellID"
 	private lazy var dataSource = SlideMenuDataSource(menu: menu, menuItemCellID: kMenuItemCellID)
 
-	override var shouldAutorotate: Bool { false }
-
 	init(menu: Menu) {
 		self.menu = menu
 		super.init(nibName: String(describing: type(of: self)), bundle: nil)

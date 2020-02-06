@@ -21,19 +21,14 @@ class AppCoordinator: Coordinator {
 	}
 
 	func start() {
-		let navVC = NewsNavigationController()
+		let navVC = UINavigationController()
 		navigationController = navVC
 		window.rootViewController = navigationController
 		window.makeKeyAndVisible()
 
-		//		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
-		//			navigationController: navVC, dataProvider: dataProvider)
-
-		let greenVC = MenuControlledViewController()
-		greenVC.view.backgroundColor = .green
-		let menuControlledCoordinator = MenuControlledCoordinator(
-			navigationController: navVC, viewController: greenVC)
-		let menuCoordinator = SlideMenuCoordinator(coordinator: menuControlledCoordinator)
+		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
+			navigationController: navVC, dataProvider: dataProvider)
+		let menuCoordinator = SlideMenuCoordinator(coordinator: topHeadlinesCoordinator)
 		childCoordinators.append(menuCoordinator)
 		menuCoordinator.start()
 	}

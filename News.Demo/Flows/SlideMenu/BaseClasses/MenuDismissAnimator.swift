@@ -17,7 +17,7 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 		guard let slideMenuVC = transitionContext.viewController(forKey: .from) as? SlideMenuViewController,
-			let navVC = transitionContext.viewController(forKey: .to) as? NewsNavigationController
+			let navVC = transitionContext.viewController(forKey: .to) as? UINavigationController
 		else {
 				return
 		}
@@ -50,7 +50,6 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 			completion: { _ in
 				let didTransitionComplete = !transitionContext.transitionWasCancelled
 				if didTransitionComplete {
-					navVC.autorotation = true
 					snapshot.removeFromSuperview()
 				}
 				transitionContext.completeTransition(didTransitionComplete) })

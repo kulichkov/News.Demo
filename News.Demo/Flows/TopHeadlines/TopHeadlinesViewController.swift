@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopHeadlinesViewController: UIViewController {
+class TopHeadlinesViewController: MenuControlledViewController {
 	private let kArticleCellID = "ArticleCell"
 	private let kActivityFooterID = "ActivityFooter"
 	private let contentSidePadding: CGFloat = 10
@@ -72,7 +72,6 @@ class TopHeadlinesViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "Top Headlines"
-		navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu_icon"), style: .plain, target: nil, action: nil)
 		fetch()
 	}
 
