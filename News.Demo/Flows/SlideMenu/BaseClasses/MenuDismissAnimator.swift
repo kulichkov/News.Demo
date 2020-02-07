@@ -28,28 +28,24 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 
 		let containerView = transitionContext.containerView
 
-		guard let oldSnapshot = containerView.viewWithTag(MenuHelper.snapshotTag),
-			let snapshot = navVC.view.snapshotView(afterScreenUpdates: true) else {
+		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot() else {
 			return
 		}
 
-		snapshot.isUserInteractionEnabled = false
-		snapshot.layer.shadowOpacity = 1
-		snapshot.layer.shadowRadius = 20
-		snapshot.tag = MenuHelper.snapshotTag
-		snapshot.transform = oldSnapshot.transform
-		containerView.insertSubview(snapshot, aboveSubview: slideMenuVC.view)
-		oldSnapshot.removeFromSuperview()
+		let startTranslationX = -slideMenuVC.dismissButton.frame.origin.x
+			//- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
 
 		// Animation
 		UIView.animate(
 			withDuration: transitionDuration(using: transitionContext),
 			delay: 0,
 			options: .curveEaseOut,
-			animations: { snapshot.transform = .identity },
+			animations: { slideMenuVC.dismissButton.transform = CGAffineTransform(
+				translationX: startTranslationX, y: 0) },
 			completion: { _ in
 				let didTransitionComplete = !transitionContext.transitionWasCancelled
 				if didTransitionComplete {
+					slideMenuVC.dismissButton.transform = .identity
 					snapshot.removeFromSuperview()
 				}
 				transitionContext.completeTransition(didTransitionComplete) })

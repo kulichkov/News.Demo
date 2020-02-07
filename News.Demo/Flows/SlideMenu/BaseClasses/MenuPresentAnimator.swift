@@ -55,7 +55,12 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 			animations: { slideMenuVC.dismissButton.transform = .identity },
 			completion: { _ in
 				navVC.view.isHidden = false
-			 	transitionContext.completeTransition(!transitionContext.transitionWasCancelled) })
+				let didTransitionComplete = !transitionContext.transitionWasCancelled
+				if !didTransitionComplete {
+					slideMenuVC.dismissButton.transform = .identity
+					snapshot.removeFromSuperview()
+				}
+			 	transitionContext.completeTransition(didTransitionComplete) })
 /*
 		// Menu items animation
 		for menuItem in slideMenuVC.btnMenuItems {
