@@ -76,6 +76,8 @@ class SlideMenuViewController: UIViewController {
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransition(to: size, with: coordinator)
 		collectionView.reloadData()
+		coordinator.animate(alongsideTransition: nil) { [weak self] _ in
+				self?.makeOrUpdateSnapshot() }
 	}
 
 	// MARK: - Public functions
@@ -85,6 +87,19 @@ class SlideMenuViewController: UIViewController {
 		setCollectionViewHeight()
 		collectionView.reloadData()
 		setupFadingViews()
+	}
+
+	@discardableResult
+	func makeOrUpdateSnapshot() -> UIView? {
+		guard let snapshot = presentingViewController?.view.snapshotView(afterScreenUpdates: true) else {
+			return nil
+		}
+		snapshot.isUserInteractionEnabled = false
+		snapshot.layer.shadowOpacity = 1
+		snapshot.layer.shadowRadius = 20
+		dismissButton.subviews.forEach { $0.removeFromSuperview() }
+		dismissButton.addSubview(snapshot)
+		return snapshot
 	}
 
 	// MARK: - Private functions

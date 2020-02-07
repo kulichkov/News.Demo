@@ -23,24 +23,28 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 				return
 		}
 
-		guard let snapshot = navVC.view.snapshotView(afterScreenUpdates: true) else {
+		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot() else {
 			return
 		}
-		snapshot.isUserInteractionEnabled = false
-		snapshot.layer.shadowOpacity = 1
-		snapshot.layer.shadowRadius = 20
-		snapshot.tag = MenuHelper.snapshotTag
+//		guard let snapshot = navVC.view.snapshotView(afterScreenUpdates: true) else {
+//			return
+//		}
+//		snapshot.isUserInteractionEnabled = false
+//		snapshot.layer.shadowOpacity = 1
+//		snapshot.layer.shadowRadius = 20
+//		snapshot.tag = MenuHelper.snapshotTag
 
 		let containerView = transitionContext.containerView
 		containerView.insertSubview(slideMenuVC.view, belowSubview: navVC.view)
-		containerView.addSubview(snapshot)
+//		containerView.addSubview(snapshot)
 
 		slideMenuVC.view.frame.size.width = containerView.bounds.width
 		slideMenuVC.view.frame.size.height = containerView.bounds.height
 		slideMenuVC.view.layoutIfNeeded()
 
-		let snapshotScaleOffset = slideMenuVC.dismissButton.frame.origin.x
-			- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
+		let startTranslationX = -slideMenuVC.dismissButton.frame.origin.x
+			//- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
+		slideMenuVC.dismissButton.transform = CGAffineTransform(translationX: startTranslationX, y: 0)
 		navVC.view.isHidden = true
 
 		// Animation
@@ -48,9 +52,7 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 			withDuration: transitionDuration(using: transitionContext),
 			delay: 0,
 			options: .curveEaseOut,
-			animations: { let translate = CGAffineTransform(scaleX: snapshotScale, y: snapshotScale)
-				snapshot.transform = translate
-					.concatenating(CGAffineTransform(translationX: snapshotScaleOffset, y: 0)) },
+			animations: { slideMenuVC.dismissButton.transform = .identity },
 			completion: { _ in
 				navVC.view.isHidden = false
 			 	transitionContext.completeTransition(!transitionContext.transitionWasCancelled) })
