@@ -11,11 +11,7 @@ import UIKit
 class SlideMenuCoordinator: NSObject, Coordinator {
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
-	lazy var menuVC: SlideMenuViewController = {
-		let menuVC = SlideMenuViewController(menu: categoryMenu)
-		menuVC.delegate = self
-		return menuVC
-	}()
+	weak var menuVC: SlideMenuViewController?
 	private var currentCoordinator: MenuControlledCoordinator? {
 		childCoordinators.first as? MenuControlledCoordinator
 	}
@@ -53,14 +49,17 @@ class SlideMenuCoordinator: NSObject, Coordinator {
 	}
 
 	func showMenu() {
-		menuVC.transitioningDelegate = self
-		menuVC.modalPresentationStyle = .fullScreen
-		currentCoordinator?.navigationController?.present(menuVC, animated: true)
+		let newMenuVC = SlideMenuViewController(menu: categoryMenu)
+		menuVC = newMenuVC
+		newMenuVC.delegate = self
+		newMenuVC.transitioningDelegate = self
+		newMenuVC.modalPresentationStyle = .fullScreen
+		currentCoordinator?.navigationController?.present(newMenuVC, animated: true)
 	}
 
 	func hideMenu() {
-		menuVC.transitioningDelegate = self
-		menuVC.dismiss(animated: true)
+		menuVC?.transitioningDelegate = self
+		menuVC?.dismiss(animated: true)
 	}
 
 	func handlePanRecognizer(_ panGestureRecognizer: UIPanGestureRecognizer, view: UIView, direction: MenuSlideDirection) {
@@ -86,7 +85,7 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 
 	func controller(_ controller: SlideMenuViewController, didPressItem item: MenuItem) {
 		if let menu = item as? Menu {
-			menuVC.menu = menu
+			menuVC?.menu = menu
 		} else if let language = item as? Language {
 			print("language selected:", language.title)
 		} else if let category = item as? NewsCategory {
@@ -96,7 +95,7 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 		} else if let item = item as? String {
 			switch item {
 			case settingsMenuItem:
-				menuVC.menu = settingsMenu
+				menuVC?.menu = settingsMenu
 			default:
 				break
 			}
@@ -106,7 +105,7 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 
 extension SlideMenuCoordinator: Refreshable {
 	func refresh() {
-		menuVC.refreshUI()
+		menuVC?.refreshUI()
 		refreshChildCoordinators()
 	}
 }

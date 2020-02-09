@@ -45,7 +45,6 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 			completion: { _ in
 				let didTransitionComplete = !transitionContext.transitionWasCancelled
 				if didTransitionComplete {
-					slideMenuVC.dismissButton.transform = .identity
 					snapshot.removeFromSuperview()
 				}
 				transitionContext.completeTransition(didTransitionComplete) })

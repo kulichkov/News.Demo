@@ -22,10 +22,6 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 			let slideMenuVC = transitionContext.viewController(forKey: .to) as? SlideMenuViewController else {
 				return
 		}
-
-		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot() else {
-			return
-		}
 //		guard let snapshot = navVC.view.snapshotView(afterScreenUpdates: true) else {
 //			return
 //		}
@@ -36,15 +32,17 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 
 		let containerView = transitionContext.containerView
 		containerView.insertSubview(slideMenuVC.view, belowSubview: navVC.view)
-//		containerView.addSubview(snapshot)
+		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot() else {
+			return
+		}
 
-		slideMenuVC.view.frame.size.width = containerView.bounds.width
-		slideMenuVC.view.frame.size.height = containerView.bounds.height
+		slideMenuVC.view.frame.size = UIScreen.main.bounds.size
 		slideMenuVC.view.layoutIfNeeded()
 
 		let startTranslationX = -slideMenuVC.dismissButton.frame.origin.x
 			//- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
 		slideMenuVC.dismissButton.transform = CGAffineTransform(translationX: startTranslationX, y: 0)
+
 		navVC.view.isHidden = true
 
 		// Animation

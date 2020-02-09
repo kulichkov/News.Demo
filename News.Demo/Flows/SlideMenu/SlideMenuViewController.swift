@@ -98,7 +98,11 @@ class SlideMenuViewController: UIViewController {
 		snapshot.layer.shadowOpacity = 1
 		snapshot.layer.shadowRadius = 20
 		dismissButton.subviews.forEach { $0.removeFromSuperview() }
+
 		dismissButton.addSubview(snapshot)
+
+		snapshot.frame.origin.y -= dismissButton.frame.origin.y
+
 		return snapshot
 	}
 
