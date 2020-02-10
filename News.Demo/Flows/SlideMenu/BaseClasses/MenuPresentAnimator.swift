@@ -36,9 +36,6 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 			return
 		}
 
-		slideMenuVC.view.frame.size = UIScreen.main.bounds.size
-		slideMenuVC.view.layoutIfNeeded()
-
 		let startTranslationX = -slideMenuVC.dismissButton.frame.origin.x
 			//- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
 		slideMenuVC.dismissButton.transform = CGAffineTransform(translationX: startTranslationX, y: 0)

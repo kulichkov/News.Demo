@@ -16,7 +16,11 @@ protocol SlideMenuViewControllerDelegate: class {
 
 class SlideMenuViewController: UIViewController {
 	@IBOutlet weak var menuTitleLabel: UILabel!
-	@IBOutlet weak var backItemButton: UIButton!
+	@IBOutlet weak var backItemButton: UIButton! {
+		didSet {
+			backItemButton.setTitle("", for: .normal)
+		}
+	}
 	@IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
 	@IBOutlet weak var collectionView: UICollectionView! {
 		didSet {
@@ -57,6 +61,8 @@ class SlideMenuViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		view.frame.size = UIScreen.main.bounds.size
+		view.layoutIfNeeded()
 		backItemButton.addTarget(self, action: #selector(backItemButtonPressed), for: .touchUpInside)
 		let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
 		view.addGestureRecognizer(panGestureRecognizer)
