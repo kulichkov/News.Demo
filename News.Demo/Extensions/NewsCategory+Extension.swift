@@ -19,3 +19,9 @@ extension NewsCategory: Comparable {
 		lhs.title < rhs.title
 	}
 }
+
+extension NewsCategory: EnumStringValue {
+	static func makeValue(from rawValue: String) -> NewsCategory? {
+		NewsCategory(rawValue: rawValue)
+	}
+}

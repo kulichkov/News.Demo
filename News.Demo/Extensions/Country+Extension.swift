@@ -132,3 +132,9 @@ extension Country: Comparable {
 		lhs.title < rhs.title
 	}
 }
+
+extension Country: EnumStringValue {
+	static func makeValue(from rawValue: String) -> Country? {
+		Country(rawValue: rawValue)
+	}
+}

@@ -23,6 +23,8 @@
 		6924ADAA23CCA67E001251B7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6924ADA923CCA67E001251B7 /* UIView+Extension.swift */; };
 		6924ADAC23CDB568001251B7 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6924ADAB23CDB568001251B7 /* String+Extension.swift */; };
 		693E2A8223DB36C9001FF335 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693E2A8123DB36C9001FF335 /* GradientView.swift */; };
+		694F11E823F3FF5800CAD74B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694F11E723F3FF5800CAD74B /* Settings.swift */; };
+		694F11EA23F406EC00CAD74B /* EnumStringValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694F11E923F406EC00CAD74B /* EnumStringValue.swift */; };
 		69716B9423CF14DE0092B8E5 /* ActivityCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69716B9223CF14DE0092B8E5 /* ActivityCollectionReusableView.xib */; };
 		69716B9523CF14DE0092B8E5 /* ActivityCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69716B9323CF14DE0092B8E5 /* ActivityCollectionReusableView.swift */; };
 		697E081A23D1E08E004EEE52 /* SlideMenuCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E081923D1E08E004EEE52 /* SlideMenuCoordinator.swift */; };
@@ -79,6 +81,8 @@
 		6924ADA923CCA67E001251B7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6924ADAB23CDB568001251B7 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		693E2A8123DB36C9001FF335 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		694F11E723F3FF5800CAD74B /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		694F11E923F406EC00CAD74B /* EnumStringValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumStringValue.swift; sourceTree = "<group>"; };
 		69716B9223CF14DE0092B8E5 /* ActivityCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCollectionReusableView.xib; sourceTree = "<group>"; };
 		69716B9323CF14DE0092B8E5 /* ActivityCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCollectionReusableView.swift; sourceTree = "<group>"; };
 		697E081923D1E08E004EEE52 /* SlideMenuCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuCoordinator.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 				690C978F23C4AD2B00851216 /* AppDelegate.swift */,
 				690C97A523C4B0B400851216 /* AppCoordinator.swift */,
 				699C4EE523C5FD2C006A66BB /* Secret.swift */,
+				694F11E723F3FF5800CAD74B /* Settings.swift */,
 				690C979123C4AD2B00851216 /* SceneDelegate.swift */,
 				690C979823C4AD2E00851216 /* Assets.xcassets */,
 				690C979A23C4AD2E00851216 /* LaunchScreen.storyboard */,
@@ -168,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				690C97A323C4B05A00851216 /* Coordinator.swift */,
+				694F11E923F406EC00CAD74B /* EnumStringValue.swift */,
 				691DEAF023DDFD850058FE93 /* Refreshable.swift */,
 			);
 			path = Protocols;
@@ -419,6 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				699C4EFD23C6158C006A66BB /* Country.swift in Sources */,
+				694F11EA23F406EC00CAD74B /* EnumStringValue.swift in Sources */,
 				699C4EF923C6158C006A66BB /* SortingType.swift in Sources */,
 				699C4F0223C61DC0006A66BB /* ResponseStatus.swift in Sources */,
 				69CF090523DE0AF4002374F8 /* MenuControlledViewController.swift in Sources */,
@@ -442,6 +449,7 @@
 				6924ADA123CC608D001251B7 /* UINavigationBar+Extension.swift in Sources */,
 				69CF090A23DEE367002374F8 /* MenuHelper.swift in Sources */,
 				69CF090C23DEE444002374F8 /* MenuInteractor.swift in Sources */,
+				694F11E823F3FF5800CAD74B /* Settings.swift in Sources */,
 				699C4EFB23C6158C006A66BB /* NewsCategory.swift in Sources */,
 				69716B9523CF14DE0092B8E5 /* ActivityCollectionReusableView.swift in Sources */,
 				699C4F0423C629BB006A66BB /* NewsRepository.swift in Sources */,

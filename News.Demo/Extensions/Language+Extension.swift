@@ -48,3 +48,9 @@ extension Language: Comparable {
 		lhs.title < rhs.title
 	}
 }
+
+extension Language: EnumStringValue {
+	static func makeValue(from rawValue: String) -> Language? {
+		Language(rawValue: rawValue)
+	}
+}
