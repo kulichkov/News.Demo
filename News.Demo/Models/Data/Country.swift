@@ -9,6 +9,7 @@
 import Foundation
 
 enum Country: String, Codable, CaseIterable {
+	case all = ""
 	case argentina = "ar"
 	case australia = "au"
 	case austria = "at"

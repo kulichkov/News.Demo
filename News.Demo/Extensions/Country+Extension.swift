@@ -11,6 +11,8 @@ import Foundation
 extension Country: MenuItem {
 	var title: String {
 		switch self {
+		case .all:
+			return "All"
 		case .argentina:
 			return "Argentina"
 		case .australia:

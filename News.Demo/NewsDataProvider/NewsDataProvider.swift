@@ -13,9 +13,10 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 	var topHeadlines: [Article] = []
 
 	// MARK: - Private properties
-	private var category: NewsCategory?
-	private var language: Language?
-	private var country: Country?
+//	private var category: NewsCategory?
+//	private var language: Language?
+//	private var country: Country?
+	private let settings = Settings()
 	private var sources: [Source]?
 	private var q: String?
 	private var pageSize: Int
@@ -31,12 +32,12 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 	private let newsRepository: NewsRepositoryProtocol
 
 	// MARK: - Initialization
-	init(newsRepository: NewsRepositoryProtocol, category: NewsCategory? = nil, language: Language? = nil, country: Country? = nil, sources: [Source]? = nil, q: String? = nil, pageSize: Int = 20) {
+	init(newsRepository: NewsRepositoryProtocol, sources: [Source]? = nil, q: String? = nil, pageSize: Int = 20) {
 		self.newsRepository = newsRepository
 
-		self.category = category
-		self.language = language
-		self.country = country
+//		self.category = category
+//		self.language = language
+//		self.country = country
 		self.sources = sources
 		self.q = q
 		self.pageSize = pageSize
@@ -54,18 +55,18 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 	}
 
 	// Property setters with completion
-	func setCategory(_ value: NewsCategory?, completion: Completion?) {
-		category = value
-		fetchFreshTopHeadlines(completion: completion)
-	}
-	func setLanguage(_ value: Language?, completion: Completion?) {
-		language = value
-		fetchFreshTopHeadlines(completion: completion)
-	}
-	func setCountry(_ value: Country?, completion: Completion?) {
-		country = value
-		fetchFreshTopHeadlines(completion: completion)
-	}
+//	func setCategory(_ value: NewsCategory?, completion: Completion?) {
+//		category = value
+//		fetchFreshTopHeadlines(completion: completion)
+//	}
+//	func setLanguage(_ value: Language?, completion: Completion?) {
+//		language = value
+//		fetchFreshTopHeadlines(completion: completion)
+//	}
+//	func setCountry(_ value: Country?, completion: Completion?) {
+//		country = value
+//		fetchFreshTopHeadlines(completion: completion)
+//	}
 	func setSources(_ value: [Source]?, completion: Completion?) {
 		sources = value
 		fetchFreshTopHeadlines(completion: completion)
@@ -87,9 +88,9 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 		}
 		print("Page:", page)
 		topHeadlinesFetchingTask = newsRepository.getTopHeadlines(
-			category: category?.rawValue,
-			language: language?.rawValue,
-			country: country?.rawValue,
+			category: settings.category?.rawValue,
+			language: settings.language.rawValue,
+			country: settings.country?.rawValue,
 			sources: sources?.compactMap { $0.id }.joined(separator: ","),
 			q: q,
 			pageSize: pageSize,

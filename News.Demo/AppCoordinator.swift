@@ -13,7 +13,7 @@ class AppCoordinator: Coordinator {
 	var navigationController: UINavigationController?
 	private let window: UIWindow
 	private let repository = NewsRepository()
-	private lazy var dataProvider = NewsDataProvider(newsRepository: repository, language: .russian, pageSize: 10)
+	private lazy var dataProvider = NewsDataProvider(newsRepository: repository, pageSize: 10)
 
 	init(window: UIWindow) {
 		self.window = window

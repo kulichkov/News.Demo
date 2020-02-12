@@ -10,7 +10,12 @@ import Foundation
 
 extension NewsCategory: MenuItem {
 	var title: String {
-		self.rawValue.capitalized
+		switch self {
+		case .all:
+			return "All"
+		default:
+			return self.rawValue.capitalized
+		}
 	}
 }
 

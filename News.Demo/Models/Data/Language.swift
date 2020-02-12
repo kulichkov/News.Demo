@@ -9,6 +9,7 @@
 import Foundation
 
 enum Language: String, Codable, CaseIterable {
+	case all = ""
 	case arabic = "ar"
 	case german = "de"
 	case english = "en"
