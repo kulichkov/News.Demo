@@ -12,6 +12,7 @@ class SlideMenuCoordinator: NSObject, Coordinator {
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
 	weak var menuVC: SlideMenuViewController?
+	private var settings = Settings()
 	private var currentCoordinator: MenuControlledCoordinator? {
 		childCoordinators.first as? MenuControlledCoordinator
 	}
@@ -88,10 +89,13 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 			menuVC?.menu = menu
 		} else if let language = item as? Language {
 			print("language selected:", language.title)
+			settings.language = language
 		} else if let category = item as? NewsCategory {
 			print("category selected:", category.title)
+			settings.category = category
 		} else if let country = item as? Country {
 			print("country selected:", country.title)
+			settings.country = country
 		} else if let item = item as? String {
 			switch item {
 			case settingsMenuItem:
