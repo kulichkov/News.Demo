@@ -49,6 +49,7 @@ class SlideMenuViewController: UIViewController {
 
 	private let kMenuItemCellID = "MenuItemCellID"
 	private lazy var dataSource = SlideMenuDataSource(menu: menu, menuItemCellID: kMenuItemCellID)
+	private let settings = Settings()
 
 	init(menu: Menu) {
 		self.menu = menu
@@ -113,6 +114,25 @@ class SlideMenuViewController: UIViewController {
 	}
 
 	// MARK: - Private functions
+
+	private func selectCurrentItem(in menu: Menu) {
+		var item: Int?
+		if let languages = menu.items as? [Language] {
+			item = languages.firstIndex(of: settings.language)
+		} else if let categories = menu.items as? [NewsCategory] {
+			item = categories.firstIndex(of: settings.category)
+		} else if let countries = menu.items as? [Country] {
+			item = countries.firstIndex(of: settings.country)
+		}
+
+		if let item = item {
+			collectionView.selectItem(
+				at: IndexPath(item: item, section: 0),
+				animated: false,
+				scrollPosition: .centeredVertically)
+		}
+	}
+
 	private func setupUI(menu: Menu) {
 		dataSource.menu = menu
 		collectionView.reloadData()
@@ -124,6 +144,7 @@ class SlideMenuViewController: UIViewController {
 		backItemButton.isHidden = menu.backItem == nil
 
 		setCollectionViewHeight()
+		selectCurrentItem(in: menu)
 	}
 
 	private func setCollectionViewHeight() {
@@ -183,6 +204,7 @@ extension SlideMenuViewController: UICollectionViewDelegateFlowLayout {
 
 extension SlideMenuViewController: UICollectionViewDelegate {
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		collectionView.cellForItem(at: indexPath)?.isSelected = true
 		delegate?.controller(self, didPressItem: dataSource[indexPath.item])
 	}
 

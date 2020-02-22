@@ -48,6 +48,11 @@ final class TopHeadlinesDataSource: NSObject {
 		}
 	}
 
+	func clear(completion: NewsDataProviderProtocol.Completion?) {
+		noMoreData = false
+		dataProvider.clearTopHeadlines(completion: completion)
+	}
+
 	private func runCompletion(_ completion: NewsDataProviderProtocol.Completion?, error: NewsDataProviderError?) {
 		switch error {
 		case .noMoreData:

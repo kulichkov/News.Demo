@@ -25,3 +25,13 @@ extension TopHeadlinesCoordinator: Refreshable {
 		refreshChildCoordinators()
 	}
 }
+
+protocol Reloadable: class {
+	func reload()
+}
+
+extension TopHeadlinesCoordinator: Reloadable {
+	func reload() {
+		topHeadlinesVC.reload()
+	}
+}

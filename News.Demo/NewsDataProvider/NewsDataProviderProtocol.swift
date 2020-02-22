@@ -22,6 +22,7 @@ protocol NewsDataProviderProtocol {
 	var topHeadlines: [Article] { get }
 	func fetchFreshTopHeadlines(completion: Completion?)
 	func fetchMoreTopHeadlines(completion: Completion?)
+	func clearTopHeadlines(completion: Completion?)
 
 //	func setCategory(_ value: NewsCategory?, completion: Completion?)
 //	func setLanguage(_ value: Language?, completion: Completion?)

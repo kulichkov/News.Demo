@@ -85,6 +85,13 @@ class TopHeadlinesViewController: MenuControlledViewController {
 		collectionView.reloadData()
 	}
 
+	func reload() {
+		dataSource.clear { [weak self] error in
+			self?.collectionView.reloadData()
+			self?.fetch()
+		}
+	}
+
 	@objc
 	private func refreshControlValueChanged(_ sender: UIRefreshControl) {
 		collectionView.sendSubviewToBack(refreshControl)

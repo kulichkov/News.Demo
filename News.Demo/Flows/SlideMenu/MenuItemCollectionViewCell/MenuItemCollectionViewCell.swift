@@ -9,11 +9,18 @@
 import UIKit
 
 class MenuItemCollectionViewCell: UICollectionViewCell {
-	@IBOutlet weak var menuItemLabel: UILabel!
+	private var selectedTextColor: UIColor { .white }
+	private var deselectedTextColor: UIColor { .gray }
+	@IBOutlet weak var menuItemLabel: UILabel! {
+		didSet {
+			menuItemLabel.textColor = deselectedTextColor
+		}
+	}
 
 	override var isSelected: Bool {
 		didSet {
 			super.isSelected = isSelected
+			menuItemLabel.textColor = isSelected ? selectedTextColor : deselectedTextColor
 		}
 	}
 

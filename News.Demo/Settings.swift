@@ -14,13 +14,13 @@ struct Settings {
 		set { set(value: newValue.rawValue, forKey: languageKey) }
 		get { getValue(key: languageKey, default: .english) }
 	}
-	var country: Country? {
-		set { set(value: newValue?.rawValue, forKey: countryKey) }
-		get { getValue(key: countryKey) }
+	var country: Country {
+		set { set(value: newValue.rawValue, forKey: countryKey) }
+		get { getValue(key: countryKey, default: .all) }
 	}
-	var category: NewsCategory? {
-		set { set(value: newValue?.rawValue, forKey: categoryKey) }
-		get { getValue(key: categoryKey) }
+	var category: NewsCategory {
+		set { set(value: newValue.rawValue, forKey: categoryKey) }
+		get { getValue(key: categoryKey, default: .all) }
 	}
 
 	// MARK: - Private properties

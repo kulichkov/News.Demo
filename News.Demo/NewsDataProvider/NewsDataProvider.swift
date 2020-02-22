@@ -54,6 +54,13 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 		fetchTopHeadlines(page: nextPage, completion: completion)
 	}
 
+	func clearTopHeadlines(completion: Completion?) {
+		topHeadlinesFetchingTask?.cancel()
+		topHeadlinesFetchingTask = nil
+		topHeadlines.removeAll()
+		completion?(nil)
+	}
+
 	// Property setters with completion
 //	func setCategory(_ value: NewsCategory?, completion: Completion?) {
 //		category = value
@@ -88,9 +95,9 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 		}
 		print("Page:", page)
 		topHeadlinesFetchingTask = newsRepository.getTopHeadlines(
-			category: settings.category?.rawValue,
+			category: settings.category.rawValue,
 			language: settings.language.rawValue,
-			country: settings.country?.rawValue,
+			country: settings.country.rawValue,
 			sources: sources?.compactMap { $0.id }.joined(separator: ","),
 			q: q,
 			pageSize: pageSize,
