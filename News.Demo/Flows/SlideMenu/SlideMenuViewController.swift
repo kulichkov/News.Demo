@@ -84,7 +84,7 @@ class SlideMenuViewController: UIViewController {
 		super.viewWillTransition(to: size, with: coordinator)
 		collectionView.reloadData()
 		coordinator.animate(alongsideTransition: nil) { [weak self] _ in
-				self?.makeOrUpdateSnapshot() }
+			self?.makeOrUpdateSnapshot(animated: true) }
 	}
 
 	// MARK: - Public functions
@@ -97,18 +97,31 @@ class SlideMenuViewController: UIViewController {
 	}
 
 	@discardableResult
-	func makeOrUpdateSnapshot() -> UIView? {
+	func makeOrUpdateSnapshot(animated: Bool) -> UIView? {
+		presentingViewController?.view.frame = view.frame
+		(presentingViewController as? UINavigationController)?.topViewController?.view.frame = view.frame
+
 		guard let snapshot = presentingViewController?.view.snapshotView(afterScreenUpdates: true) else {
 			return nil
 		}
 		snapshot.isUserInteractionEnabled = false
 		snapshot.layer.shadowOpacity = 1
 		snapshot.layer.shadowRadius = 20
-		dismissButton.subviews.forEach { $0.removeFromSuperview() }
-
-		dismissButton.addSubview(snapshot)
-
 		snapshot.frame.origin.y -= dismissButton.frame.origin.y
+
+		if let oldSnapshot = dismissButton.subviews.first {
+			dismissButton.insertSubview(snapshot, belowSubview: oldSnapshot)
+			if animated {
+				UIView.transition(
+					from: oldSnapshot,
+					to: snapshot,
+					duration: 0.3,
+					options: .transitionCrossDissolve,
+					completion: nil)
+			} else {
+				oldSnapshot.removeFromSuperview()
+			}
+		}
 
 		return snapshot
 	}

@@ -19,7 +19,7 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 		guard let slideMenuVC = transitionContext.viewController(forKey: .from) as? SlideMenuViewController,
 			let navVC = transitionContext.viewController(forKey: .to) as? UINavigationController
 		else {
-				return
+			return
 		}
 
 		// Solving rotation problem during menu presentation
@@ -28,7 +28,7 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 
 		let containerView = transitionContext.containerView
 
-		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot() else {
+		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot(animated: false) else {
 			return
 		}
 

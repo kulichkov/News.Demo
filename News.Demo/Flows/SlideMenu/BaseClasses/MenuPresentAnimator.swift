@@ -32,7 +32,7 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 
 		let containerView = transitionContext.containerView
 		containerView.insertSubview(slideMenuVC.view, belowSubview: navVC.view)
-		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot() else {
+		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot(animated: false) else {
 			return
 		}
 
