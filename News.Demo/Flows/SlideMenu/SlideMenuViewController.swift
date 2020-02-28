@@ -98,6 +98,7 @@ class SlideMenuViewController: UIViewController {
 		setCollectionViewHeight()
 		collectionView.reloadData()
 		setupFadingViews()
+		makeOrUpdateSnapshot(animated: false)
 	}
 
 	@discardableResult

@@ -115,8 +115,8 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 
 extension SlideMenuCoordinator: Refreshable {
 	func refresh() {
-		menuVC?.refreshUI()
 		refreshChildCoordinators()
+		menuVC?.refreshUI()
 	}
 }
 
