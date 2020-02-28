@@ -33,15 +33,15 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 		}
 
 		let startTranslationX = -slideMenuVC.dismissButton.frame.origin.x
-			//- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
 
 		// Animation
 		UIView.animate(
 			withDuration: transitionDuration(using: transitionContext),
 			delay: 0,
 			options: .curveEaseOut,
-			animations: { slideMenuVC.dismissButton.transform = CGAffineTransform(
-				translationX: startTranslationX, y: 0) },
+			animations: { snapshot.transform = .identity
+				slideMenuVC.dismissButton.transform = CGAffineTransform(
+					translationX: startTranslationX, y: 0) },
 			completion: { _ in
 				let didTransitionComplete = !transitionContext.transitionWasCancelled
 				if didTransitionComplete {

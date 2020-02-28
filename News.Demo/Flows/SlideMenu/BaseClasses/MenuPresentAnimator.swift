@@ -16,29 +16,23 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 	}
 
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-		let snapshotScale: CGFloat = 0.9
-
 		guard let navVC = transitionContext.viewController(forKey: .from) as? UINavigationController,
 			let slideMenuVC = transitionContext.viewController(forKey: .to) as? SlideMenuViewController else {
 				return
 		}
-//		guard let snapshot = navVC.view.snapshotView(afterScreenUpdates: true) else {
-//			return
-//		}
-//		snapshot.isUserInteractionEnabled = false
-//		snapshot.layer.shadowOpacity = 1
-//		snapshot.layer.shadowRadius = 20
-//		snapshot.tag = MenuHelper.snapshotTag
 
 		let containerView = transitionContext.containerView
 		containerView.insertSubview(slideMenuVC.view, belowSubview: navVC.view)
 		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot(animated: false) else {
 			return
 		}
+		let snapshotScale: CGFloat = 0.9
 
 		let startTranslationX = -slideMenuVC.dismissButton.frame.origin.x
-			//- 0.5 * snapshot.bounds.width * (1 - snapshotScale)
 		slideMenuVC.dismissButton.transform = CGAffineTransform(translationX: startTranslationX, y: 0)
+		let snapshotTranslating = CGAffineTransform(
+			translationX: -0.5 * snapshot.bounds.width * (1 - snapshotScale), y: 0)
+		let snapshotScaling = CGAffineTransform(scaleX: snapshotScale, y: snapshotScale)
 
 		navVC.view.isHidden = true
 
@@ -47,7 +41,8 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 			withDuration: transitionDuration(using: transitionContext),
 			delay: 0,
 			options: .curveEaseOut,
-			animations: { slideMenuVC.dismissButton.transform = .identity },
+			animations: { snapshot.transform = snapshotTranslating.concatenating(snapshotScaling)
+				slideMenuVC.dismissButton.transform = .identity },
 			completion: { _ in
 				navVC.view.isHidden = false
 				let didTransitionComplete = !transitionContext.transitionWasCancelled

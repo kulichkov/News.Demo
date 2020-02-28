@@ -69,6 +69,10 @@ class SlideMenuViewController: UIViewController {
 		view.addGestureRecognizer(panGestureRecognizer)
 	}
 
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
+	}
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		setupUI(menu: menu)
@@ -100,6 +104,7 @@ class SlideMenuViewController: UIViewController {
 	func makeOrUpdateSnapshot(animated: Bool) -> UIView? {
 		presentingViewController?.view.frame = view.frame
 		(presentingViewController as? UINavigationController)?.topViewController?.view.frame = view.frame
+		presentingViewController?.view.setNeedsLayout()
 
 		guard let snapshot = presentingViewController?.view.snapshotView(afterScreenUpdates: true) else {
 			return nil
@@ -110,6 +115,7 @@ class SlideMenuViewController: UIViewController {
 		snapshot.frame.origin.y -= dismissButton.frame.origin.y
 
 		if let oldSnapshot = dismissButton.subviews.first {
+			snapshot.transform = oldSnapshot.transform
 			dismissButton.insertSubview(snapshot, belowSubview: oldSnapshot)
 			if animated {
 				UIView.transition(
@@ -121,13 +127,14 @@ class SlideMenuViewController: UIViewController {
 			} else {
 				oldSnapshot.removeFromSuperview()
 			}
+		} else {
+			dismissButton.addSubview(snapshot)
 		}
 
 		return snapshot
 	}
 
 	// MARK: - Private functions
-
 	private func selectCurrentItem(in menu: Menu) {
 		var item: Int?
 		if let languages = menu.items as? [Language] {
