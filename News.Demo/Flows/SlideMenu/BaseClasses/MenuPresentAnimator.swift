@@ -16,13 +16,13 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 	}
 
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-		guard let navVC = transitionContext.viewController(forKey: .from) as? UINavigationController,
+		guard let menuControlledVC = transitionContext.viewController(forKey: .from),
 			let slideMenuVC = transitionContext.viewController(forKey: .to) as? SlideMenuViewController else {
 				return
 		}
 
 		let containerView = transitionContext.containerView
-		containerView.insertSubview(slideMenuVC.view, belowSubview: navVC.view)
+		containerView.insertSubview(slideMenuVC.view, belowSubview: menuControlledVC.view)
 		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot(animated: false) else {
 			return
 		}
@@ -34,7 +34,7 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 			translationX: -0.5 * snapshot.bounds.width * (1 - snapshotScale), y: 0)
 		let snapshotScaling = CGAffineTransform(scaleX: snapshotScale, y: snapshotScale)
 
-		navVC.view.isHidden = true
+		menuControlledVC.view.isHidden = true
 
 		// Animation
 		UIView.animate(
@@ -44,7 +44,7 @@ extension MenuPresentAnimator: UIViewControllerAnimatedTransitioning {
 			animations: { snapshot.transform = snapshotTranslating.concatenating(snapshotScaling)
 				slideMenuVC.dismissButton.transform = .identity },
 			completion: { _ in
-				navVC.view.isHidden = false
+				menuControlledVC.view.isHidden = false
 				let didTransitionComplete = !transitionContext.transitionWasCancelled
 				if !didTransitionComplete {
 					slideMenuVC.dismissButton.transform = .identity
