@@ -86,7 +86,7 @@ class SlideMenuViewController: UIViewController {
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransition(to: size, with: coordinator)
-		collectionView.reloadData()
+		collectionViewFlowLayout.invalidateLayout()
 		coordinator.animate(alongsideTransition: nil) { [weak self] _ in
 			self?.makeOrUpdateSnapshot(animated: true) }
 	}
