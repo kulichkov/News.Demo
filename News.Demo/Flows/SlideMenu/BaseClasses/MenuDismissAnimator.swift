@@ -16,17 +16,10 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 	}
 
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-		guard let slideMenuVC = transitionContext.viewController(forKey: .from) as? SlideMenuViewController,
-			let navVC = transitionContext.viewController(forKey: .to) as? UINavigationController
+		guard let slideMenuVC = transitionContext.viewController(forKey: .from) as? SlideMenuViewController
 		else {
 			return
 		}
-
-		// Solving rotation problem during menu presentation
-		// https://stackoverflow.com/questions/31969524
-		navVC.view.frame = transitionContext.finalFrame(for: navVC)
-
-		let containerView = transitionContext.containerView
 
 		guard let snapshot = slideMenuVC.makeOrUpdateSnapshot(animated: false) else {
 			return
@@ -49,7 +42,7 @@ extension MenuDismissAnimator: UIViewControllerAnimatedTransitioning {
 				}
 				transitionContext.completeTransition(didTransitionComplete) })
 
-/*
+/* For advances feature: menu items animation
 		// Menu items animation
 		for menuItem in slideMenuVC.btnMenuItems {
 			menuItem.alpha = 0.0

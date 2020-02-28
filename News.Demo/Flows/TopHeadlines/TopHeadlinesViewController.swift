@@ -86,7 +86,7 @@ class TopHeadlinesViewController: MenuControlledViewController {
 	}
 
 	func reload() {
-		dataSource.clear { [weak self] error in
+		dataSource.clear { [weak self] _ in
 			self?.collectionView.reloadData()
 			self?.fetch()
 		}
