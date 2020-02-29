@@ -52,7 +52,7 @@ class NewsRepository: NewsRepositoryProtocol {
 		// Header
 		urlRequest.httpMethod = type.rawValue
 		urlRequest.httpBody = body
-		urlRequest.addValue(Secret.newsAPIKey, forHTTPHeaderField: xApiKeyField)
+		urlRequest.addValue(PrivateKeys.newsAPIKey, forHTTPHeaderField: xApiKeyField)
 
 		let task = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
 			if let data = data {
