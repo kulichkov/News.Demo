@@ -95,4 +95,4 @@ iOSInjectionProject/
 
 # Secret files
 
-Secret.swift
+*.secret.swift
