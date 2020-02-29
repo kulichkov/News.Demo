@@ -11,8 +11,6 @@ import Foundation
 extension Language: MenuItem {
 	var title: String {
 		switch self {
-		case .all:
-			return "All"
 		case .arabic:
 			return "Arabic"
 		case .german:
