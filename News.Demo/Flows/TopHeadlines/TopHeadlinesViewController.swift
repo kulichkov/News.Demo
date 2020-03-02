@@ -88,6 +88,7 @@ class TopHeadlinesViewController: MenuControlledViewController {
 	func reload() {
 		dataSource.clear { [weak self] _ in
 			self?.collectionView.reloadData()
+			self?.collectionView.scrollRectToVisible(.zero, animated: false)
 			self?.fetch()
 		}
 	}
@@ -122,11 +123,19 @@ class TopHeadlinesViewController: MenuControlledViewController {
 			strongSelf.isMainActivityVisible = false
 			strongSelf.isFetching = false
 			let endIndex = strongSelf.dataSource.endIndex - 1
-			if endIndex > startIndex {
+
+			if startIndex > 0, endIndex > startIndex {
 				strongSelf.collectionView.performBatchUpdates({
 					let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
 					strongSelf.collectionView.insertItems(at: indexPaths)
 				})
+				print()
+			} else {
+				strongSelf.collectionView.reloadData()
+				strongSelf.collectionView.scrollToItem(
+					at: IndexPath(item: 0, section: 0),
+					at: .top,
+					animated: false)
 			}
 		}
 	}
@@ -147,7 +156,7 @@ extension TopHeadlinesViewController: UICollectionViewDelegateFlowLayout {
 extension TopHeadlinesViewController: UICollectionViewDelegate {
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let fullOffset = scrollView.contentSize.height - scrollView.bounds.height
-		print(String(format: "%0.2f", scrollView.contentOffset.y / fullOffset))
+		//print(String(format: "%0.2f", scrollView.contentOffset.y / fullOffset))
 		if scrollView.contentOffset.y > 0, scrollView.contentOffset.y >= fetchingPoint * fullOffset {
 			//print("==== Offset to FETCH")
 			fetch()
