@@ -109,7 +109,9 @@ extension TopHeadlinesDataSource: UICollectionViewDataSource {
 				try imageRepository.getImage(withURL: url) { result in
 					switch result {
 					case .success(let image):
-						print("success: \(image.size)")
+						if cell.urlToImage == url {
+							cell.backgroundImage = image
+						}
 					case .failure(let error):
 						print(error)
 					}

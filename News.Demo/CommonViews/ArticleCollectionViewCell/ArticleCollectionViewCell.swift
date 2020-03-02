@@ -14,7 +14,22 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 	@IBOutlet weak var authorLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var sourceLabel: UILabel!
+	@IBOutlet weak var backgroundImageView: UIImageView!
 	var urlToImage: String?
+	var backgroundImage: UIImage? {
+		set {
+			DispatchQueue.main.async { [weak self] in
+				guard let strongSelf = self else { return }
+				UIView.transition(
+					with: strongSelf.backgroundImageView,
+					duration: 0.2,
+					options: .transitionCrossDissolve,
+					animations: { strongSelf.backgroundImageView.image = newValue },
+					completion: nil)
+			}
+		}
+		get { backgroundImageView.image }
+	}
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
@@ -23,6 +38,7 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 		authorLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
 		descriptionLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
 		sourceLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+		backgroundImageView.image = nil
 	}
 
 	func fill(article: Article) {

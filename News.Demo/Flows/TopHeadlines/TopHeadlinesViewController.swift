@@ -114,13 +114,20 @@ class TopHeadlinesViewController: MenuControlledViewController {
 		isFetching = true
 		isActivityFooterVisible = !dataSource.isEmpty
 		isMainActivityVisible = dataSource.isEmpty
+		let startIndex = dataSource.endIndex
 		dataSource.fetch { [weak self] error in
 			print(error ?? "NO ERROR")
 			guard let strongSelf = self else { return }
 			strongSelf.isActivityFooterVisible = false
 			strongSelf.isMainActivityVisible = false
-			strongSelf.collectionView.reloadData()
 			strongSelf.isFetching = false
+			let endIndex = strongSelf.dataSource.endIndex - 1
+			if endIndex > startIndex {
+				strongSelf.collectionView.performBatchUpdates({
+					let indexPaths = (startIndex...endIndex).map { IndexPath(item: $0, section: 0) }
+					strongSelf.collectionView.insertItems(at: indexPaths)
+				})
+			}
 		}
 	}
 }
