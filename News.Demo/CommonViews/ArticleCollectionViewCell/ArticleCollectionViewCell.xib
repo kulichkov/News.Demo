@@ -19,7 +19,7 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYv-YK-i2O">
                         <rect key="frame" x="0.0" y="0.0" width="485" height="153"/>
                     </imageView>
-                    <view alpha="0.75" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk6-WB-MQ3">
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fk6-WB-MQ3">
                         <rect key="frame" x="0.0" y="0.0" width="485" height="153"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uVn-qD-0qw">
@@ -58,7 +58,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.75049515850000004" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="uVn-qD-0qw" secondAttribute="bottom" constant="10" id="QdB-OE-CDL"/>
                             <constraint firstAttribute="trailing" secondItem="uVn-qD-0qw" secondAttribute="trailing" constant="10" id="e7Z-X4-wcy"/>
