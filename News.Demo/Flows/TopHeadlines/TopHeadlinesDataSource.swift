@@ -22,6 +22,7 @@ final class TopHeadlinesDataSource: NSObject {
 	private let iso8601DateFormatter = ISO8601DateFormatter()
 	private let dateFormatter: DateFormatter = {
 		let dateFormatter = DateFormatter()
+		dateFormatter.locale = Locale.preferredLocale
 		dateFormatter.dateStyle = .full
 		dateFormatter.timeStyle = .medium
 		return dateFormatter
