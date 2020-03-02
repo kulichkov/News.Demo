@@ -59,9 +59,9 @@ class TopHeadlinesViewController: MenuControlledViewController {
 	}
 	@IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
 
-	init(dataProvider: NewsDataProviderProtocol) {
+	init(dataProvider: NewsDataProviderProtocol, imageRepository: ImageRepositoryProtocol) {
 		dataSource = TopHeadlinesDataSource(
-			dataProvider: dataProvider, articleCellID: kArticleCellID, activityViewID: kActivityFooterID)
+			dataProvider: dataProvider, imageRepository: imageRepository, articleCellID: kArticleCellID, activityViewID: kActivityFooterID)
 		super.init(nibName: String(describing: type(of: self)), bundle: nil)
 	}
 

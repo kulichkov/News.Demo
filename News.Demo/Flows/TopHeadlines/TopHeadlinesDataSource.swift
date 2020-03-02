@@ -11,14 +11,16 @@ import UIKit
 final class TopHeadlinesDataSource: NSObject {
 	private(set) var noMoreData: Bool = false
 	private let dataProvider: NewsDataProviderProtocol
+	private let imageRepository: ImageRepositoryProtocol
 	private let articleCellID: String
 	private let activityViewID: String
 	private let refreshingLock = NSLock()
 	private var isRefreshable: Bool { !dataProvider.topHeadlines.isEmpty }
 	private var isRefreshing: Bool = false
 
-	init(dataProvider: NewsDataProviderProtocol, articleCellID: String, activityViewID: String) {
+	init(dataProvider: NewsDataProviderProtocol, imageRepository: ImageRepositoryProtocol, articleCellID: String, activityViewID: String) {
 		self.dataProvider = dataProvider
+		self.imageRepository = imageRepository
 		self.articleCellID = articleCellID
 		self.activityViewID = activityViewID
 	}
@@ -102,6 +104,20 @@ extension TopHeadlinesDataSource: UICollectionViewDataSource {
 		}
 		let article = dataProvider.topHeadlines[indexPath.item]
 		cell.fill(article: article)
+		if let url = article.urlToImage {
+			do {
+				try imageRepository.getImage(withURL: url) { result in
+					switch result {
+					case .success(let image):
+						print("success: \(image.size)")
+					case .failure(let error):
+						print(error)
+					}
+				}
+			} catch {
+				print(error)
+			}
+		}
 		return cell
 	}
 

@@ -14,6 +14,7 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 	@IBOutlet weak var authorLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var sourceLabel: UILabel!
+	var urlToImage: String?
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
@@ -30,6 +31,7 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 		authorLabel.text = article.author
 		descriptionLabel.text = article.description
 		sourceLabel.text = article.source?.name
+		urlToImage = article.urlToImage
 	}
 
 	static func height(article: Article, cellWidth: CGFloat) -> CGFloat {

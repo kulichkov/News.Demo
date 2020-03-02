@@ -53,6 +53,6 @@ class ImageRepository: ImageRepositoryProtocol {
 			} else {
 				completion(.failure(.requestError(error)))
 			}
-		}
+		}.resume()
 	}
 }

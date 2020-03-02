@@ -12,9 +12,9 @@ class TopHeadlinesCoordinator: MenuControlledCoordinator {
 	private let topHeadlinesVC: TopHeadlinesViewController
 	private let dataProvider: NewsDataProviderProtocol
 
-	init(navigationController: UINavigationController, dataProvider: NewsDataProviderProtocol) {
+	init(navigationController: UINavigationController, dataProvider: NewsDataProviderProtocol, imageRepository: ImageRepositoryProtocol) {
 		self.dataProvider = dataProvider
-		self.topHeadlinesVC = TopHeadlinesViewController(dataProvider: dataProvider)
+		self.topHeadlinesVC = TopHeadlinesViewController(dataProvider: dataProvider, imageRepository: imageRepository)
 		super.init(navigationController: navigationController, viewController: topHeadlinesVC)
 	}
 }

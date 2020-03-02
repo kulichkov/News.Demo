@@ -14,6 +14,7 @@ class AppCoordinator: Coordinator {
 	private let window: UIWindow
 	private let repository = NewsRepository()
 	private lazy var dataProvider = NewsDataProvider(newsRepository: repository, pageSize: 10)
+	private let imageRepository = ImageRepository()
 
 	init(window: UIWindow) {
 		self.window = window
@@ -27,7 +28,7 @@ class AppCoordinator: Coordinator {
 		window.makeKeyAndVisible()
 
 		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
-			navigationController: navVC, dataProvider: dataProvider)
+			navigationController: navVC, dataProvider: dataProvider, imageRepository: imageRepository)
 		let menuCoordinator = SlideMenuCoordinator(coordinator: topHeadlinesCoordinator)
 		childCoordinators.append(menuCoordinator)
 		menuCoordinator.start()

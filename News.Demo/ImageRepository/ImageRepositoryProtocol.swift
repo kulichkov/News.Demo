@@ -15,7 +15,7 @@ enum ImageRepositoryError: Error {
 }
 
 protocol ImageRepositoryProtocol {
-	typealias Completion = (Result<UIImage, ImageRepositoryError>) -> ()
+	typealias Completion = (Result<UIImage, ImageRepositoryError>) -> Void
 	typealias StringURL = String
 	typealias NSStringURL = NSString
 	func getImage(withURL url: StringURL, completion: @escaping Completion) throws
