@@ -60,6 +60,8 @@
 		69CF090E23E0A683002374F8 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF090D23E0A683002374F8 /* UIViewController+Extension.swift */; };
 		69CF091023E17153002374F8 /* MenuDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69CF090F23E17153002374F8 /* MenuDismissAnimator.swift */; };
 		69FB0F5C240A391400F570DB /* PrivateKeys.secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FB0F5B240A391400F570DB /* PrivateKeys.secret.swift */; };
+		69FB0F61240D051100F570DB /* ImageRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FB0F60240D051100F570DB /* ImageRepositoryProtocol.swift */; };
+		69FB0F63240D075D00F570DB /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FB0F62240D075D00F570DB /* ImageRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +120,8 @@
 		69CF090D23E0A683002374F8 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		69CF090F23E17153002374F8 /* MenuDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuDismissAnimator.swift; sourceTree = "<group>"; };
 		69FB0F5B240A391400F570DB /* PrivateKeys.secret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateKeys.secret.swift; sourceTree = "<group>"; };
+		69FB0F60240D051100F570DB /* ImageRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepositoryProtocol.swift; sourceTree = "<group>"; };
+		69FB0F62240D075D00F570DB /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +161,7 @@
 				699C4F0A23C72EDA006A66BB /* NewsDataProvider */,
 				699C4EE723C604A9006A66BB /* NewsRepository */,
 				691DEAF223DDFD900058FE93 /* Protocols */,
+				69FB0F5F240D04D700F570DB /* ImageRepository */,
 				690C978F23C4AD2B00851216 /* AppDelegate.swift */,
 				690C97A523C4B0B400851216 /* AppCoordinator.swift */,
 				694F11E723F3FF5800CAD74B /* Settings.swift */,
@@ -328,6 +333,15 @@
 			path = BaseClasses;
 			sourceTree = "<group>";
 		};
+		69FB0F5F240D04D700F570DB /* ImageRepository */ = {
+			isa = PBXGroup;
+			children = (
+				69FB0F60240D051100F570DB /* ImageRepositoryProtocol.swift */,
+				69FB0F62240D075D00F570DB /* ImageRepository.swift */,
+			);
+			path = ImageRepository;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -442,6 +456,8 @@
 				69CF090823DEE281002374F8 /* MenuPresentAnimator.swift in Sources */,
 				6924ADA523CC6C64001251B7 /* ArticleCollectionViewCell.swift in Sources */,
 				69CF090E23E0A683002374F8 /* UIViewController+Extension.swift in Sources */,
+				69FB0F61240D051100F570DB /* ImageRepositoryProtocol.swift in Sources */,
+				69FB0F63240D075D00F570DB /* ImageRepository.swift in Sources */,
 				699C4F0723C72A9F006A66BB /* TopHeadlinesResponse.swift in Sources */,
 				69B8148123D71B070044975C /* Country+Extension.swift in Sources */,
 				699C4EFC23C6158C006A66BB /* Language.swift in Sources */,

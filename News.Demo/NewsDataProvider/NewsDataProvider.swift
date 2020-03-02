@@ -13,9 +13,6 @@ final class NewsDataProvider: NewsDataProviderProtocol {
 	var topHeadlines: [Article] = []
 
 	// MARK: - Private properties
-//	private var category: NewsCategory?
-//	private var language: Language?
-//	private var country: Country?
 	private let settings = Settings()
 	private var sources: [Source]?
 	private var q: String?
