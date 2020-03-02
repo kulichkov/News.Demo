@@ -18,6 +18,15 @@ final class TopHeadlinesDataSource: NSObject {
 	private var isRefreshable: Bool { !dataProvider.topHeadlines.isEmpty }
 	private var isRefreshing: Bool = false
 
+	// Date stuff
+	private let iso8601DateFormatter = ISO8601DateFormatter()
+	private let dateFormatter: DateFormatter = {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .full
+		dateFormatter.timeStyle = .medium
+		return dateFormatter
+	}()
+
 	init(dataProvider: NewsDataProviderProtocol, imageRepository: ImageRepositoryProtocol, articleCellID: String, activityViewID: String) {
 		self.dataProvider = dataProvider
 		self.imageRepository = imageRepository
@@ -53,6 +62,15 @@ final class TopHeadlinesDataSource: NSObject {
 	func clear(completion: NewsDataProviderProtocol.Completion?) {
 		noMoreData = false
 		dataProvider.clearTopHeadlines(completion: completion)
+	}
+
+	// MARK: - Private functions
+	private func convertToUserFriendly(fromISO8601date string: String?) -> String? {
+		guard let notNilString = string, let date = iso8601DateFormatter.date(from: notNilString) else {
+			print("Not ISO8601 date format: \(string)")
+			return nil
+		}
+		return dateFormatter.string(from: date)
 	}
 
 	private func runCompletion(_ completion: NewsDataProviderProtocol.Completion?, error: NewsDataProviderError?) {
@@ -103,7 +121,14 @@ extension TopHeadlinesDataSource: UICollectionViewDataSource {
 			return UICollectionViewCell()
 		}
 		let article = dataProvider.topHeadlines[indexPath.item]
+
+		// Fill cell with main info
 		cell.fill(article: article)
+
+		// Fill cell with formatted date
+		cell.date = convertToUserFriendly(fromISO8601date: article.publishedAt)
+
+		// Fill cell with image
 		if let url = article.urlToImage {
 			do {
 				try imageRepository.getImage(withURL: url) { result in

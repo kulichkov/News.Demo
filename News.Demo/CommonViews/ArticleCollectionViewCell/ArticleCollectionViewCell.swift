@@ -15,6 +15,14 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var sourceLabel: UILabel!
 	@IBOutlet weak var backgroundImageView: UIImageView!
+	var date: String? {
+		set {
+			dateLabel.text = newValue
+		}
+		get {
+			dateLabel.text
+		}
+	}
 	var urlToImage: String?
 	var backgroundImage: UIImage? {
 		set {
@@ -42,7 +50,6 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 	}
 
 	func fill(article: Article) {
-		dateLabel.text = article.publishedAt
 		titleLabel.text = article.title
 		authorLabel.text = article.author
 		descriptionLabel.text = article.description
