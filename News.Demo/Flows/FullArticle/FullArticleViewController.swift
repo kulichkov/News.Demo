@@ -21,6 +21,10 @@ class FullArticleViewController: UIViewController {
 	init(with article: Article) {
 		self.article = article
 		super.init(nibName: String(describing: type(of: self)), bundle: nil)
+		navigationItem.rightBarButtonItem = UIBarButtonItem(
+			barButtonSystemItem: .action,
+			target: self,
+			action: #selector(shareBarButtonPressed))
 	}
 
 	required init?(coder: NSCoder) {
@@ -35,5 +39,10 @@ class FullArticleViewController: UIViewController {
 		}
 		articleWebView.load(URLRequest(url: url))
 		title = article.title
+	}
+
+	@objc
+	private func shareBarButtonPressed(_ sender: UIBarButtonItem) {
+
 	}
 }
