@@ -16,6 +16,7 @@ class TopHeadlinesCoordinator: MenuControlledCoordinator {
 		self.dataProvider = dataProvider
 		self.topHeadlinesVC = TopHeadlinesViewController(dataProvider: dataProvider, imageRepository: imageRepository)
 		super.init(navigationController: navigationController, viewController: topHeadlinesVC)
+		topHeadlinesVC.newsListDelegate = self
 	}
 }
 
@@ -33,5 +34,15 @@ protocol Reloadable: class {
 extension TopHeadlinesCoordinator: Reloadable {
 	func reload() {
 		topHeadlinesVC.reload()
+	}
+}
+
+extension TopHeadlinesCoordinator: NewsListDelegate {
+	func controller(_ controller: UIViewController, didSelectArticle article: Article) {
+		let fullArticleCoordinator = FullArticleCoordinator(
+			navigationController: navigationController,
+			article: article)
+		//childCoordinators.append(fullArticleCoordinator)
+		fullArticleCoordinator.start()
 	}
 }

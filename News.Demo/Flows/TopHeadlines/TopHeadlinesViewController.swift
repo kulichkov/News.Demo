@@ -17,6 +17,8 @@ class TopHeadlinesViewController: MenuControlledViewController {
 	// TODO: Come up with more good idea of refreshing
 	private let dataSource: TopHeadlinesDataSource
 
+	weak var newsListDelegate: NewsListDelegate?
+
 	private var hasToReload: Bool {
 		collectionView.indexPathsForVisibleItems.isEmpty ||
 		!collectionView.indexPathsForVisibleSupplementaryElements(
@@ -154,6 +156,10 @@ extension TopHeadlinesViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension TopHeadlinesViewController: UICollectionViewDelegate {
+	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		newsListDelegate?.controller(self, didSelectArticle: dataSource[indexPath.item])
+	}
+
 	func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		let fullOffset = scrollView.contentSize.height - scrollView.bounds.height
 		//print(String(format: "%0.2f", scrollView.contentOffset.y / fullOffset))
