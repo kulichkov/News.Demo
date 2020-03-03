@@ -8,9 +8,24 @@
 
 import UIKit
 
-protocol Coordinator {
+protocol Coordinator: AnyObject {
+	var parentCoordinator: Coordinator? { get }
 	var childCoordinators: [Coordinator] { get set }
-	var navigationController: UINavigationController? { get set }
+	var navigationController: UINavigationController? { get }
 
 	func start()
+	func childCoordinatorDidFinish(_ coordinator: Coordinator?)
+}
+
+extension Coordinator {
+	func childCoordinatorDidFinish(_ child: Coordinator?) {
+		guard let position = childCoordinators.firstIndex(where: { $0 === child }) else {
+			return
+		}
+		childCoordinators.remove(at: position)
+	}
+}
+
+protocol Coordinated where Self: UIViewController {
+	var coordinator: Coordinator? { get }
 }

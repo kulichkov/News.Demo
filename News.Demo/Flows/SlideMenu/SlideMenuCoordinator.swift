@@ -9,6 +9,7 @@
 import UIKit
 
 class SlideMenuCoordinator: NSObject, Coordinator {
+	var parentCoordinator: Coordinator?
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
 	weak var menuVC: SlideMenuViewController?
@@ -42,7 +43,8 @@ class SlideMenuCoordinator: NSObject, Coordinator {
 	init(coordinator: MenuControlledCoordinator) {
 		self.childCoordinators = [coordinator]
 		super.init()
-		currentCoordinator?.delegate = self
+		coordinator.delegate = self
+		coordinator.parentCoordinator = self
 	}
 
 	func start() {

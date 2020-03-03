@@ -13,7 +13,8 @@ protocol MenuControlledViewControllerDelegate: class {
 	func viewController(_ viewController: MenuControlledViewController, didPanGestureWithRecognizer panGestureRecognizer: UIPanGestureRecognizer)
 }
 
-class MenuControlledViewController: UIViewController {
+class MenuControlledViewController: UIViewController, Coordinated {
+	weak var coordinator: Coordinator?
 	weak var delegate: MenuControlledViewControllerDelegate?
 
 	override func viewDidLoad() {

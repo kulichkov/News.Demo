@@ -9,6 +9,7 @@
 import UIKit
 
 class FullArticleCoordinator: Coordinator {
+	var parentCoordinator: Coordinator?
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
 
@@ -22,6 +23,7 @@ class FullArticleCoordinator: Coordinator {
 	func start() {
 		let fullArticleVC = FullArticleViewController(with: article)
 		fullArticleVC.sharingDelegate = self
+		fullArticleVC.coordinator = self
 		navigationController?.pushViewController(fullArticleVC, animated: true)
 	}
 }

@@ -13,7 +13,8 @@ protocol MenuControlledCoordinatorDelegate: class {
 	func coordinator(_ coordinator: MenuControlledCoordinator, didHandlePanGestureRecognizer panGestureRecognizer: UIPanGestureRecognizer)
 }
 
-class MenuControlledCoordinator: Coordinator {
+class MenuControlledCoordinator: NSObject, Coordinator {
+	var parentCoordinator: Coordinator?
 	var childCoordinators: [Coordinator] = []
 	var navigationController: UINavigationController?
 	let viewController: MenuControlledViewController
@@ -22,6 +23,7 @@ class MenuControlledCoordinator: Coordinator {
 	init(navigationController: UINavigationController, viewController: MenuControlledViewController) {
 		self.navigationController = navigationController
 		self.viewController = viewController
+		super.init()
 		viewController.delegate = self
 	}
 

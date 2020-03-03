@@ -9,13 +9,14 @@
 import UIKit
 import WebKit
 
-class FullArticleViewController: UIViewController {
+class FullArticleViewController: UIViewController, Coordinated {
 	@IBOutlet weak var articleWebView: WKWebView! {
 		didSet {
 			setArticle(article)
 		}
 	}
 
+	weak var coordinator: Coordinator?
 	weak var sharingDelegate: SharingDelegate?
 	private let article: Article
 

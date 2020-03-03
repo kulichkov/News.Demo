@@ -68,7 +68,7 @@ final class TopHeadlinesDataSource: NSObject {
 	// MARK: - Private functions
 	private func convertToUserFriendly(fromISO8601date string: String?) -> String? {
 		guard let notNilString = string, let date = iso8601DateFormatter.date(from: notNilString) else {
-			print("Not ISO8601 date format: \(string)")
+			print("Not ISO8601 date format: \(String(describing: string))")
 			return nil
 		}
 		return dateFormatter.string(from: date)

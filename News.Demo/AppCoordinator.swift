@@ -9,6 +9,7 @@
 import UIKit
 
 class AppCoordinator: Coordinator {
+	var parentCoordinator: Coordinator?
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController?
 	private let window: UIWindow
@@ -31,6 +32,7 @@ class AppCoordinator: Coordinator {
 			navigationController: navVC, dataProvider: dataProvider, imageRepository: imageRepository)
 		let menuCoordinator = SlideMenuCoordinator(coordinator: topHeadlinesCoordinator)
 		childCoordinators.append(menuCoordinator)
+		menuCoordinator.parentCoordinator = self
 		menuCoordinator.start()
 	}
 
