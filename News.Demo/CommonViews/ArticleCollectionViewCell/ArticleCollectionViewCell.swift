@@ -19,6 +19,11 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var sourceLabel: UILabel!
 	@IBOutlet weak var backgroundImageView: UIImageView!
+	override var isHighlighted: Bool {
+		didSet {
+			setHighlighted(to: isHighlighted)
+		}
+	}
 	var date: String? {
 		set {
 			dateLabel.text = newValue
@@ -47,6 +52,7 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 	required init?(coder: NSCoder) {
 		super.init(coder: coder)
 		let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureHandled))
+		longPress.minimumPressDuration = 1
 		addGestureRecognizer(longPress)
 	}
 
@@ -66,6 +72,12 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 		descriptionLabel.text = article.description
 		sourceLabel.text = article.source?.name
 		urlToImage = article.urlToImage
+	}
+
+	func setHighlighted(to value: Bool) {
+		UIView.animate(withDuration: 0.2) { [weak contentView] in
+			contentView?.transform = value ? .init(scaleX: 0.9, y: 0.9) : .identity
+		}
 	}
 
 	static func height(article: Article, cellWidth: CGFloat) -> CGFloat {
