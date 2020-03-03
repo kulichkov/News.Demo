@@ -42,7 +42,7 @@ extension TopHeadlinesCoordinator: NewsListDelegate {
 		let fullArticleCoordinator = FullArticleCoordinator(
 			navigationController: navigationController,
 			article: article)
-		//childCoordinators.append(fullArticleCoordinator)
+		childCoordinators.append(fullArticleCoordinator)
 		fullArticleCoordinator.start()
 	}
 }

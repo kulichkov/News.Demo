@@ -16,6 +16,7 @@ class FullArticleViewController: UIViewController {
 		}
 	}
 
+	weak var sharingDelegate: SharingDelegate?
 	private let article: Article
 
 	init(with article: Article) {
@@ -43,6 +44,6 @@ class FullArticleViewController: UIViewController {
 
 	@objc
 	private func shareBarButtonPressed(_ sender: UIBarButtonItem) {
-
+		sharingDelegate?.controller(self, didShare: article)
 	}
 }

@@ -20,7 +20,25 @@ class FullArticleCoordinator: Coordinator {
 	}
 
 	func start() {
-		let vc = FullArticleViewController(with: article)
-		navigationController?.pushViewController(vc, animated: true)
+		let fullArticleVC = FullArticleViewController(with: article)
+		fullArticleVC.sharingDelegate = self
+		navigationController?.pushViewController(fullArticleVC, animated: true)
+	}
+}
+
+extension FullArticleCoordinator: SharingDelegate {
+	func controller(_ controller: UIViewController, didShare article: Article) {
+		var activityItems: [Any] = []
+		if let url = article.url {
+			activityItems = [url as Any]
+		} else {
+			print("No url to share, sharing title and description...")
+			activityItems = [
+				article.title ?? "",
+				article.description ?? ""
+			]
+		}
+		let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+		navigationController?.present(activityVC, animated: true, completion: nil)
 	}
 }
