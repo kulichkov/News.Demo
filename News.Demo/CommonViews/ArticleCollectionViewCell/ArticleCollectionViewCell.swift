@@ -75,9 +75,13 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 	}
 
 	func setHighlighted(to value: Bool) {
-		UIView.animate(withDuration: 0.2) { [weak contentView] in
-			contentView?.transform = value ? .init(scaleX: 0.9, y: 0.9) : .identity
-		}
+		UIView.animate(
+			withDuration: 0.2,
+			delay: 0,
+			options: .curveEaseInOut,
+			animations: { [weak contentView] in
+				contentView?.transform = value ? .init(scaleX: 0.9, y: 0.9) : .identity },
+			completion: nil)
 	}
 
 	static func height(article: Article, cellWidth: CGFloat) -> CGFloat {
