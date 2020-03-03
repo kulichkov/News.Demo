@@ -26,6 +26,7 @@ class AppCoordinator: Coordinator {
 		let navVC = UINavigationController()
 		navigationController = navVC
 		window.rootViewController = navigationController
+		window.frame = UIScreen.main.bounds
 		window.makeKeyAndVisible()
 
 		let topHeadlinesCoordinator = TopHeadlinesCoordinator(
