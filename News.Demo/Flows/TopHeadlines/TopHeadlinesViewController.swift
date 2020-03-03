@@ -17,7 +17,7 @@ class TopHeadlinesViewController: MenuControlledViewController {
 	// TODO: Come up with more good idea of refreshing
 	private let dataSource: TopHeadlinesDataSource
 
-	weak var newsListDelegate: NewsListDelegate?
+	weak var newsListDelegate: (NewsListDelegate & SharingDelegate)?
 
 	private var hasToReload: Bool {
 		collectionView.indexPathsForVisibleItems.isEmpty ||
@@ -65,6 +65,7 @@ class TopHeadlinesViewController: MenuControlledViewController {
 		dataSource = TopHeadlinesDataSource(
 			dataProvider: dataProvider, imageRepository: imageRepository, articleCellID: kArticleCellID, activityViewID: kActivityFooterID)
 		super.init(nibName: String(describing: type(of: self)), bundle: nil)
+		dataSource.cellDelegate = self
 	}
 
 	required init?(coder: NSCoder) {
@@ -167,5 +168,14 @@ extension TopHeadlinesViewController: UICollectionViewDelegate {
 			//print("==== Offset to FETCH")
 			fetch()
 		}
+	}
+}
+
+extension TopHeadlinesViewController: ArticleCollectionViewCellDelegate {
+	func cellDidLongPress(_ cell: ArticleCollectionViewCell) {
+		guard let item = collectionView.indexPath(for: cell)?.item else {
+			return
+		}
+		newsListDelegate?.controller(self, didShare: dataSource[item])
 	}
 }

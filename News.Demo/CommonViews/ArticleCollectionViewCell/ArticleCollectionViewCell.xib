@@ -69,6 +69,7 @@
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="DYv-YK-i2O" secondAttribute="trailing" id="0MB-9f-Pzv"/>
                 <constraint firstItem="DYv-YK-i2O" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3Rf-M7-6dO"/>

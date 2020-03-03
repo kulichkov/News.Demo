@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ArticleCollectionViewCellDelegate: class {
+	func cellDidLongPress(_ cell: ArticleCollectionViewCell)
+}
+
 class ArticleCollectionViewCell: UICollectionViewCell {
 	@IBOutlet weak var dateLabel: UILabel!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -37,6 +41,13 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 			}
 		}
 		get { backgroundImageView.image }
+	}
+	weak var delegate: ArticleCollectionViewCellDelegate?
+
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+		let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureHandled))
+		addGestureRecognizer(longPress)
 	}
 
 	override func prepareForReuse() {
@@ -74,4 +85,10 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 		return heights.reduce(initialResult, +)
 	}
 
+	@objc
+	private func longPressGestureHandled(_ recognizer: UILongPressGestureRecognizer) {
+		if recognizer.state == .began {
+			delegate?.cellDidLongPress(self)
+		}
+	}
 }

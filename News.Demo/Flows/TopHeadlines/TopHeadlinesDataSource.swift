@@ -17,6 +17,7 @@ final class TopHeadlinesDataSource: NSObject {
 	private let refreshingLock = NSLock()
 	private var isRefreshable: Bool { !dataProvider.topHeadlines.isEmpty }
 	private var isRefreshing: Bool = false
+	weak var cellDelegate: ArticleCollectionViewCellDelegate?
 
 	// Date stuff
 	private let iso8601DateFormatter = ISO8601DateFormatter()
@@ -125,6 +126,7 @@ extension TopHeadlinesDataSource: UICollectionViewDataSource {
 
 		// Fill cell with main info
 		cell.fill(article: article)
+		cell.delegate = cellDelegate
 
 		// Fill cell with formatted date
 		cell.date = convertToUserFriendly(fromISO8601date: article.publishedAt)

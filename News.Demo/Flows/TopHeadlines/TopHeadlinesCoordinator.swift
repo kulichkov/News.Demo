@@ -39,7 +39,7 @@ extension TopHeadlinesCoordinator: Reloadable {
 	}
 }
 
-extension TopHeadlinesCoordinator: NewsListDelegate {
+extension TopHeadlinesCoordinator: NewsListDelegate, SharingDelegate {
 	func controller(_ controller: UIViewController, didSelectArticle article: Article) {
 		let fullArticleCoordinator = FullArticleCoordinator(
 			navigationController: navigationController,
