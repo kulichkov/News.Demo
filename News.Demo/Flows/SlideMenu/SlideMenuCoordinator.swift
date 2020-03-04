@@ -93,17 +93,17 @@ extension SlideMenuCoordinator: SlideMenuViewControllerDelegate {
 			print("language selected:", language.title)
 			settings.language = language
 			(currentCoordinator as? Reloadable)?.reload()
-			//hideMenu()
+			hideMenu()
 		} else if let category = item as? NewsCategory {
 			print("category selected:", category.title)
 			settings.category = category
 			(currentCoordinator as? Reloadable)?.reload()
-			//hideMenu()
+			hideMenu()
 		} else if let country = item as? Country {
 			print("country selected:", country.title)
 			settings.country = country
 			(currentCoordinator as? Reloadable)?.reload()
-			//hideMenu()
+			hideMenu()
 		} else if let item = item as? String {
 			switch item {
 			case settingsMenuItem:
