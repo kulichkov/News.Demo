@@ -14,8 +14,12 @@ enum ImageRepositoryError: Error {
 	case dataConversionError
 }
 
+enum ImageSource {
+	case cache, network
+}
+
 protocol ImageRepositoryProtocol {
-	typealias Completion = (Result<UIImage, ImageRepositoryError>) -> Void
+	typealias Completion = (Result<(UIImage, ImageSource), ImageRepositoryError>) -> Void
 	typealias StringURL = String
 	typealias NSStringURL = NSString
 	func getImage(withURL url: StringURL, completion: @escaping Completion) throws

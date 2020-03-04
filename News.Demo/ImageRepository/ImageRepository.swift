@@ -14,12 +14,12 @@ class ImageRepository: ImageRepositoryProtocol {
 	// MARK: - Public functions
 	func getImage(withURL url: StringURL, completion: @escaping Completion) throws {
 		if let image = getImage(withURL: url, from: cache) {
-			completion(.success(image))
+			completion(.success((image, .cache)))
 		} else {
 			try downloadImage(withURL: url) { [weak self] result in
 				guard let strongSelf = self else { return }
 				switch result {
-				case .success(let image):
+				case .success(let image, _):
 					strongSelf.setImage(image, withURL: url, to: strongSelf.cache)
 				default: break
 				}
@@ -46,7 +46,7 @@ class ImageRepository: ImageRepositoryProtocol {
 		URLSession.shared.dataTask(with: url) { (data, _, error) in
 			if let data = data {
 				if let image = UIImage(data: data) {
-					completion(.success(image))
+					completion(.success((image, .network)))
 				} else {
 					completion(.failure(.dataConversionError))
 				}

@@ -33,20 +33,6 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 		}
 	}
 	var urlToImage: String?
-	var backgroundImage: UIImage? {
-		set {
-			DispatchQueue.main.async { [weak self] in
-				guard let strongSelf = self else { return }
-				UIView.transition(
-					with: strongSelf.backgroundImageView,
-					duration: 0.2,
-					options: .transitionCrossDissolve,
-					animations: { strongSelf.backgroundImageView.image = newValue },
-					completion: nil)
-			}
-		}
-		get { backgroundImageView.image }
-	}
 	weak var delegate: ArticleCollectionViewCellDelegate?
 
 	required init?(coder: NSCoder) {
@@ -82,6 +68,22 @@ class ArticleCollectionViewCell: UICollectionViewCell {
 			animations: { [weak contentView] in
 				contentView?.transform = value ? .init(scaleX: 0.9, y: 0.9) : .identity },
 			completion: nil)
+	}
+
+	func setBackgroundImage(_ image: UIImage?, animated: Bool) {
+		DispatchQueue.main.async { [weak self] in
+			guard let strongSelf = self else { return }
+			guard animated else {
+				strongSelf.backgroundImageView.image = image
+				return
+			}
+			UIView.transition(
+				with: strongSelf.backgroundImageView,
+				duration: 0.4,
+				options: .transitionCrossDissolve,
+				animations: { strongSelf.backgroundImageView.image = image },
+				completion: nil)
+		}
 	}
 
 	static func height(article: Article, cellWidth: CGFloat) -> CGFloat {
